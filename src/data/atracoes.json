@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "nome": "Igreja Matriz de Santo Antônio e Praça da Matriz",
+    "categoria": "Histórico e Urbano",
+    "descricao": "Considerado o marco zero da cidade, o local carrega a história do início do município.",
+    "localizacao": { "cidade": "Balsas", "estado": "MA" },
+    "distanciaCentroKm": 0,
+    "tags": ["história", "cultura", "arquitetura", "urbano"]
+  },
+  {
+    "id": 2,
+    "nome": "Ponte de Madeira",
+    "categoria": "Histórico e Urbano",
+    "descricao": "Construída há mais de 40 anos, é um patrimônio cultural e cartão-postal que liga pontos da cidade.",
+    "localizacao": { "cidade": "Balsas", "estado": "MA" },
+    "distanciaCentroKm": null,
+    "tags": ["história", "cultura", "patrimônio", "fotografia"]
+  },
+  {
+    "id": 3,
+    "nome": "Porto dos Caraíbas",
+    "categoria": "Histórico e Urbano",
+    "descricao": "Conhecido como o verdadeiro berço histórico do surgimento do município.",
+    "localizacao": { "cidade": "Balsas", "estado": "MA" },
+    "distanciaCentroKm": null,
+    "tags": ["história", "cultura", "patrimônio"]
+  },
+  {
+    "id": 4,
+    "nome": "Museu Municipal Gilza Magalhães Ribeiro",
+    "categoria": "Histórico e Urbano",
+    "descricao": "Espaço importante para preservar e contar a história local e cultural da região.",
+    "localizacao": { "cidade": "Balsas", "estado": "MA" },
+    "distanciaCentroKm": null,
+    "tags": ["história", "cultura", "museu", "patrimônio"]
+  },
+  {
+    "id": 5,
+    "nome": "Prainha",
+    "categoria": "Lazer",
+    "descricao": "Ponto de encontro à beira do rio, para lazer, descanso e dias de calor com a família.",
+    "localizacao": { "cidade": "Balsas", "estado": "MA" },
+    "distanciaCentroKm": null,
+    "tags": ["lazer", "família", "rio", "natureza"]
+  },
+  {
+    "id": 6,
+    "nome": "Cachoeira das Três Marias",
+    "categoria": "Natureza e Aventura",
+    "descricao": "Formada por três quedas d'água, é uma das atrações naturais mais conhecidas da região.",
+    "localizacao": { "cidade": "Balsas", "estado": "MA" },
+    "distanciaCentroKm": 50,
+    "tags": ["natureza", "aventura", "cachoeira", "trilha"]
+  },
+  {
+    "id": 7,
+    "nome": "Cachoeira do Macapá",
+    "categoria": "Natureza e Aventura",
+    "descricao": "Considerada a maior queda da região, com aproximadamente 65 metros de altura.",
+    "localizacao": { "cidade": "Balsas", "estado": "MA" },
+    "distanciaCentroKm": 85,
+    "tags": ["natureza", "aventura", "cachoeira", "ecoturismo"]
+  },
+  {
+    "id": 8,
+    "nome": "Descida de boia no Rio Balsas",
+    "categoria": "Natureza e Aventura",
+    "descricao": "Passeio tradicional em que moradores e turistas descem o Rio Balsas em câmaras de pneu.",
+    "localizacao": { "cidade": "Balsas", "estado": "MA" },
+    "distanciaCentroKm": null,
+    "tags": ["natureza", "aventura", "rio", "lazer", "ecoturismo"]
+  }
+]

@@ -1,0 +1,3 @@
+* text=auto eol=lf
+# Preserva bytes/checksums SQL já aplicados; não normalizar ao publicar/clonar.
+prisma/migrations/** -text

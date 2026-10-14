@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Atracao {
+  id                Int          @id @default(autoincrement())
+  nome              String
+  categoria         String
+  categoriaId       Int
+  categoriaRelacao   Categoria @relation(fields: [categoriaId], references: [id])
+  avaliacoes        Avaliacao[]
+  descricao         String
+  cidade             String       @default("Balsas")
+  estado             String       @default("MA")
+  distanciaCentroKm Float?
+  tags               AtracaoTag[]
+  criadoEm           DateTime     @default(now())
+  atualizadoEm       DateTime     @updatedAt
+
+  @@index([categoria])
+  @@index([categoriaId])
+  @@index([cidade])
+  @@map("atracoes")
+}
+
+model Categoria {
+  id Int @id @default(autoincrement())
+  nome String @unique
+  chave String @unique
+  atracoes Atracao[]
+  @@map("categorias")
+}
+
+model Avaliacao {
+  id Int @id @default(autoincrement())
+  visitante String
+  nota Int
+  comentario String?
+  criadaEm DateTime @default(now())
+  atracaoId Int
+  atracao Atracao @relation(fields: [atracaoId], references: [id], onDelete: Cascade)
+  @@index([atracaoId])
+  @@map("avaliacoes")
+}
+
+model Tag {
+  id       Int          @id @default(autoincrement())
+  nome     String       @unique
+  atracoes AtracaoTag[]
+
+  @@map("tags")
+}
+
+model AtracaoTag {
+  atracaoId Int
+  tagId     Int
+  atracao   Atracao @relation(fields: [atracaoId], references: [id], onDelete: Cascade)
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([atracaoId, tagId])
+  @@index([tagId])
+  @@map("atracao_tags")
+}

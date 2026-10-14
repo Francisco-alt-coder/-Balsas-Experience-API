@@ -1,0 +1,38 @@
+name: Linux unit checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7, node24
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7, node24
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --include=dev
+      - name: Configure disposable unit-test environment
+        run: |
+          node --input-type=module <<'JS'
+          import {randomBytes} from 'node:crypto';
+          import {appendFileSync} from 'node:fs';
+          const token=randomBytes(32).toString('base64url');
+          const url=new URL('postgresql://127.0.0.1:1/unit_mock');
+          url.username='unit_mock';url.password=randomBytes(32).toString('base64url');
+          console.log('::add-mask::'+token);
+          console.log('::add-mask::'+url.href);
+          appendFileSync(process.env.GITHUB_ENV,'API_WRITE_TOKEN='+token+'\nDATABASE_URL='+url.href+'\nNODE_ENV=test\n');
+          JS
+      - run: npx --no-install prisma validate --config prisma7.config.ts
+      - run: npm run build
+      - run: npm run check
+      - run: npm test
+# Unit tests mock queries. No migration, real database, production secret or deploy.

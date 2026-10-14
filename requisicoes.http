@@ -1,0 +1,116 @@
+@api = http://localhost:3000
+@idTemporario = 0
+# Após executar a criação (9), copie o ID retornado para idTemporario.
+# O valor 0 é inválido e impede alterações acidentais em registros preexistentes.
+
+### 1. Saúde da aplicação
+GET {{api}}/health
+
+### 2. Identificação da API
+GET {{api}}/
+
+### 3. Listar todas
+GET {{api}}/atracoes
+
+### 4. Buscar ID 1
+GET {{api}}/atracoes/1
+
+### 5. Buscar ID ausente - 404 somente se 999 realmente não existir
+GET {{api}}/atracoes/999
+
+### 6. Filtrar por categoria
+GET {{api}}/atracoes?categoria=Natureza%20e%20Aventura
+
+### 7. Filtrar por tag
+GET {{api}}/atracoes?tag=cachoeira
+
+### 8. Combinar categoria e tag
+GET {{api}}/atracoes?categoria=Natureza%20e%20Aventura&tag=aventura
+
+### 9. Criar atração - esperado 201
+POST {{api}}/atracoes
+Authorization: Bearer {{$processEnv API_WRITE_TOKEN}}
+Content-Type: application/json
+
+{
+  "nome": "Auditoria REST Client - registro temporário",
+  "categoria": "Lazer",
+  "descricao": "Espaço destinado ao lazer e à convivência.",
+  "localizacao": { "cidade": "Balsas", "estado": "MA" },
+  "distanciaCentroKm": 3,
+  "tags": []
+}
+
+### 10. Criação inválida - esperado 400
+POST {{api}}/atracoes
+Authorization: Bearer {{$processEnv API_WRITE_TOKEN}}
+Content-Type: application/json
+
+{
+  "nome": ""
+}
+
+### 11. Substituir atração - esperado 200
+PUT {{api}}/atracoes/{{idTemporario}}
+Authorization: Bearer {{$processEnv API_WRITE_TOKEN}}
+Content-Type: application/json
+
+{
+  "nome": "Auditoria REST Client - registro temporário",
+  "categoria": "Histórico e Urbano",
+  "descricao": "Atração histórica atualizada para teste do método PUT.",
+  "localizacao": { "cidade": "Balsas", "estado": "MA" },
+  "distanciaCentroKm": 0,
+  "tags": []
+}
+
+### Validar PATCH antes de excluir o temporário
+PATCH {{api}}/atracoes/{{idTemporario}}
+Authorization: Bearer {{$processEnv API_WRITE_TOKEN}}
+Content-Type: application/json
+
+{
+  "descricao": "Descrição alterada parcialmente via PATCH."
+}
+
+### 12. Remover atração - esperado 204
+DELETE {{api}}/atracoes/{{idTemporario}}
+Authorization: Bearer {{$processEnv API_WRITE_TOKEN}}
+
+### 13. Remover novamente - esperado 404
+DELETE {{api}}/atracoes/{{idTemporario}}
+Authorization: Bearer {{$processEnv API_WRITE_TOKEN}}
+
+### 14. Rota inexistente - esperado 404
+GET {{api}}/abc
+
+### Desafio: categorias
+GET {{api}}/categorias
+
+### Desafio: cidade
+GET {{api}}/atracoes?cidade=Balsas
+
+### Desafio: distância até 60 km
+GET {{api}}/atracoes?ate=60
+
+### Desafio: ordenar por nome
+GET {{api}}/atracoes?ordem=nome
+
+### Extensão: paginação
+GET {{api}}/atracoes?pagina=1&tamanho=3
+
+### Confirmar exclusão do registro temporário - esperado 404
+GET {{api}}/atracoes/{{idTemporario}}
+
+### Busca textual
+GET {{api}}/atracoes?q=rio
+
+### Compatibilidade categorias
+GET {{api}}/categorias?formato=nomes
+
+### Avaliar somente o registro tempor?rio
+POST {{api}}/atracoes/{{idTemporario}}/avaliacoes
+Authorization: Bearer {{$processEnv API_WRITE_TOKEN}}
+Content-Type: application/json
+
+{"visitante":"Visitante de teste","nota":5,"comentario":null}
