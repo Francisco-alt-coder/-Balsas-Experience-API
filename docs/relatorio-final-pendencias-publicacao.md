@@ -1,8 +1,10 @@
 # Relatório final das pendências e publicação — Balsas Experience API 2.0.0
 
-13/10/2026, America/Sao_Paulo. Última rodada completa: 21:07:42–21:08:08 local (14/10/2026 00:07:42–00:08:08 UTC). Estado **FUNCIONAL LOCALMENTE**; publicação **BLOQUEADA POR DEPENDÊNCIA EXTERNA**. Não há comprovação de funcionamento em produção.
+13/10/2026, America/Sao_Paulo. **Código publicado no GitHub com autorização condicional cumprida. API FUNCIONAL LOCALMENTE; implantação em produção BLOQUEADA POR DEPENDÊNCIA EXTERNA.** Commit do pacote: f40bb1585f8e8e95657f3ede7f7b71099c01785d. GitHub Actions aprovado: 47/47 unitários em Ubuntu 24.04/Node 24.21.0. Sem deploy, migração ou mudança de credenciais/permissões remotas.
 
-Este relatório prevalece sobre os registros históricos. **16 itens: 2 RESOLVIDO, 6 VALIDADO, 6 BLOQUEADO e 2 NÃO VERIFICADO. Oito fechados e oito abertos.** A [matriz dos três PDFs](matriz-rastreabilidade-academica.md) registra diferenças de contrato e entrega pública ausente; não se certifica conformidade literal integral.
+Última rodada local completa: 196/196, 21:07:42–21:08:08 local (14/10/2026 00:07:42–00:08:08 UTC). Commit criado 21:30:14 e CI iniciado 21:30:55 local, conforme metadados GitHub. Atualização documental registra essa execução; arquivos e conclusões anteriores representam a preparação do pacote quando explicitamente históricos.
+
+Este relatório prevalece sobre os registros históricos. **16 itens: 3 RESOLVIDO, 6 VALIDADO, 5 BLOQUEADO e 2 NÃO VERIFICADO. Nove fechados e sete abertos.** A [matriz dos três PDFs](matriz-rastreabilidade-academica.md) registra diferenças de contrato e entrega pública ausente; não se certifica conformidade literal integral.
 
 ## Matriz obrigatória das 16 pendências
 
@@ -20,14 +22,14 @@ Este relatório prevalece sobre os registros históricos. **16 itens: 2 RESOLVID
 | A02 | Schema/ledger Neon ausentes | Banco remoto sem estrutura da API | Inventário READ ONLY atualizado; SQL/hashes/riscos/recuperação revisados | public vazio, ledger ausente; plano remoto; backup remoto não comprovado | BLOQUEADO |
 | A03 | Role runtime e privilégios remotos | Conector owner administrativo | Confirmada inexistência da role proposta; plano mínimo por objeto preparado | Catálogo remoto; nenhuma role/grant alterada | BLOQUEADO |
 | A04 | DATABASE_URL, token e CORS de produção | Configuração remota incompleta | Token privado forte gerado; none definido/testado sem frontend; modelo atualizado | Arquivo privado ignorado; 2 regressões CORS e 2 smokes; DATABASE_URL vazia | BLOQUEADO |
-| A05 | GitHub sem remoto/commits e sem aprovação de envio | Main local sem commits/remoto | Destino público vazio/acesso confirmados; origin configurado; pacote/manifesto e index preparados | 112 arquivos; mensagem proposta; zero commits/push; aprovação específica pendente | BLOQUEADO |
+| A05 | GitHub sem remoto/commits e sem aprovação de envio | Main local sem commits/remoto | Autorização condicional atendida; hashes/segredos/112 caminhos conferidos; commit/push sem force; remoto verificado | f40bb1585f8e8e95657f3ede7f7b71099c01785d; 112 blobs idênticos ao manifesto; CI success | RESOLVIDO |
 | A06 | Render sem deploy/URL | Acesso/segredos/autorização ausentes | Free/modelo revistos; integração disponível sugerida; plano preparado | Acesso Render não confirmado; nenhum serviço/deploy/URL real | BLOQUEADO |
-| A07 | Linux, sinais reais e cold start | Somente Windows executado | Workflow Ubuntu preparado; YAML e runtime/sinais analisados | CI não executado; SIGTERM emitido por preload Windows | NÃO VERIFICADO |
+| A07 | Linux, sinais reais e cold start | Somente Windows executado | CI unitário real Ubuntu 24.04/Node 24.21.0 aprovado; runtime integrado/sinais/cold start ainda ausentes | Run 38490614729, 47/47 e validate/build/check; nenhum Render executado | NÃO VERIFICADO |
 | A08 | Codex Security não concluído | Duas falhas históricas de inicialização | Nova tentativa falhou; alternativa ESLint/security executada; hotspots runtime examinados | Mesmo erro; alternativa: 82 arquivos, zero erros, 168 avisos | NÃO VERIFICADO |
 
 ## A. Diagnóstico
 
-Express/Prisma/PostgreSQL funcionam localmente. Os bloqueios restantes são independentes: credencial TCP privada ausente, Neon sem schema/ledger/runtime role, configuração remota incompleta, falta de aprovação do envio público e de acesso/aprovação de deploy. Linux e Codex Security não foram comprovados. Metadados, TLS de transporte e SQL pelo conector não equivalem à API autenticada no Neon.
+Express/Prisma/PostgreSQL funcionam localmente. Os bloqueios restantes são independentes: credencial TCP privada ausente, Neon sem schema/ledger/runtime role, configuração remota incompleta, falta de acesso/aprovação de deploy. GitHub foi publicado após autorização; CI unitário Linux comprovado, mas runtime integrado/sinais/cold start e Codex Security permanecem sem comprovação. Metadados, TLS de transporte e SQL pelo conector não equivalem à API autenticada no Neon.
 
 Falha local nova: o harness reutilizava um marcador de parada entre dois smokes e encerrava o segundo processo cedo. Marcadores exclusivos corrigiram o problema e a rodada final passou. Não era falha do middleware CORS. Nenhum frontend/domínio publicado foi identificado; a futura URL da API não determina a origem de um frontend. none atende aos clientes sem Origin sem inventar domínio.
 
@@ -57,7 +59,7 @@ CORS_ORIGINS=none permite clientes sem Origin e nega qualquer Origin/preflight c
 
 Harness mantém cleanup no finally, nomes exclusivos de parada/PID e porta confirmada fechada. Scanner compara em memória tokens, URLs e senhas de cinco fontes privadas; mensagens apenas arquivo/motivo. Duas regressões confirmam detecção de vazamento conhecido sem imprimir token e aceitação de candidato benigno. Busca heurística não garante ausência de todos os segredos.
 
-Token novo criptográfico gerado apenas no arquivo privado, sem sobrescrever credenciais existentes/imprimir valores. Helpers existentes verificaram ACL de arquivo/diretório; nenhuma ACL modificada nesta etapa. DATABASE_URL permanece vazia. CI, origin, index e pacote são preparo local, sem commit/publicação remota.
+Token novo criptográfico gerado apenas no arquivo privado, sem sobrescrever credenciais existentes/imprimir valores. Helpers existentes verificaram ACL de arquivo/diretório; nenhuma ACL modificada nesta etapa. DATABASE_URL permanece vazia. CI, origin, index e pacote foram preparados localmente; commit/push foram executados depois da autorização específica descrita em H.
 
 ## D. Neon
 
@@ -117,9 +119,10 @@ Baseline atual antes das mudanças:192/192, backups/neon/readiness-2026-10-13T23
 | ESLint/security e parser PowerShell | Executados:168 avisos / zero erros de parse | Codex não concluiu; triagem incompleta |
 | Probe privado Neon na retomada | NEON_OPERATOR_DIRECT_URL_EMPTY | Bloqueado antes de autenticar |
 | Transporte Neon e SQL READ ONLY conector | Executados separadamente | Não comprovam API autenticada |
-| Linux/Render/API pública/CRUD remoto | Não executados | Dependências/aprovação ausentes |
+| GitHub Actions Ubuntu 24.04/Node 24.21.0 | 47/47 unitários; ci/validate/build/check aprovados | Sem PostgreSQL remoto ou runtime HTTP integrado |
+| Render/API pública/CRUD remoto/sinais/cold start | Não executados | Dependências/aprovação ausentes |
 
-196 são casos das quatro suítes parcialmente sobrepostas; repetição não aumenta contagem. Quatro regressões adicionadas aos 192 anteriores. Smokes/parser/checks operacionais não somados aos 196. Nenhum total fictício de testes remotos aprovados/falhos. Após a retomada, alterações documentais e de actions do CI não alteraram o runtime; foi feita validação direcionada do YAML e da sintaxe do script CI, sem repetir as suítes já aprovadas.
+196 são casos das quatro suítes parcialmente sobrepostas; repetição não aumenta contagem. Quatro regressões adicionadas aos 192 anteriores. Smokes/parser/checks operacionais não somados aos 196. Nenhum total fictício de testes remotos aprovados/falhos. Após a retomada, YAML/script CI foram validados localmente; o push autorizado executou 47 unitários novamente em Linux. Essa repetição não aumenta os 196 casos locais. Nenhuma suíte de integração local foi repetida sem mudança de runtime.
 
 Falha intermediária preservada:194 casos de suítes passaram, mas segundo smoke falhou por marcador reutilizado; correção e ambos smokes passaram em readiness-2026-10-13T23-53-12-070Z-7256/summary.json. Rodada final196 passou ambos. Falha forçada/cleanup: readiness-2026-10-13T23-56-12-821Z-4624/summary.json. Alvo divergente recusado: backups/neon/snapshot-regression.private.json. Todos esses diretórios readiness estão em backups/neon; falhas de harness não apagadas para alegar sucesso.
 
@@ -127,11 +130,17 @@ Após cada suíte final, contagens/SHA-256 das seis tabelas principal/isolada ig
 
 ## H. GitHub
 
-Destino [Francisco-alt-coder/-Balsas-Experience-API](https://github.com/Francisco-alt-coder/-Balsas-Experience-API), público/vazio; acesso admin/push reconfirmado pelo conector na retomada. ls-remote sem refs; origin local configurado para URL.git. Branch main, index preparado com112 arquivos, zero commits. Nenhum commit/push/force push ou alteração remota. Reconferir refs/permissões/bytes antes de eventual envio e preservar mudanças remotas novas.
+Destino [Francisco-alt-coder/-Balsas-Experience-API](https://github.com/Francisco-alt-coder/-Balsas-Experience-API), branch main. O usuário autorizou explicitamente commit/push de 112 arquivos, condicionado a integridade, ausência de segredos/arquivos extras, preservação de histórico e interrupção se qualquer controle falhasse. Nenhuma autorização de Neon/Render/credenciais foi inferida desse aceite.
 
-Pacote em backups/publicacao/prompt-mestre-20261013: source.zip, manifest.json/manifest.md com112 caminhos/tamanhos/SHA-256, destino/branch, mensagem proposta e hash do arquivo ZIP. Excluídos .git, .env real, privados, dumps/backups/logs, node_modules/tmp e PDFs. JSON público src/data/atracoes.json incluído explicitamente; não é exportação do banco nem aprovação de carga no Neon.
+Gate aprovado: ZIP SHA-256 ac1462cba0d4c2d68f4d3deb2788fab1c3df2ab6d78dff1e8ba9bf2773ad8a74; 112 hashes de workspace/index/ZIP iguais aos registrados; patch íntegro; apenas os 112 caminhos do manifesto; cinco fontes privadas comparadas, zero hits; branch main e remoto vazio reconfirmados imediatamente antes do envio. Simulação de push aprovada. Históricos originais preservados; nenhum force push.
 
-Mensagem proposta: `feat: versionar Balsas Experience API 2.0.0 e preparo de publicação`. Fase GitHub do prompt exige aprovação de divulgação/commit/push do pacote exato, ainda não registrada. CI executará só após envio autorizado e consumirá cota da conta, sem deploy/escrita no banco. Actions [checkout](https://github.com/actions/checkout) e [setup-node](https://github.com/actions/setup-node) atualizadas de v4 para v7, com SHAs confirmados nos repositórios oficiais e runtime Node24; permissões contents:read, checkout sem persistência de credencial e ambiente descartável mantidos. YAML/script validados localmente, sem alegar execução em Actions. Não inventado histórico de commits.
+Commit inicial [f40bb1585f8e8e95657f3ede7f7b71099c01785d](https://github.com/Francisco-alt-coder/-Balsas-Experience-API/commit/f40bb1585f8e8e95657f3ede7f7b71099c01785d), sem parents pois o destino estava vazio. Autor/committer existentes na configuração Git mantidos; assinatura criptográfica ausente, sem alegar commit assinado. Push normal/set-upstream concluído. ls-remote e API oficial confirmaram SHA; árvore remota 32c33720df7cfcdb199fec3d289539e1042540da sem truncamento. Os 112 paths/modes/tamanhos/blob SHAs foram comparados aos bytes aprovados: zero extras/ausentes, SQL histórico idêntico. Nada de .env real, privados, dumps, backups, logs, node_modules, tmp ou PDFs publicado; JSON turístico público incluído conforme manifesto.
+
+[GitHub Actions 38490614729](https://github.com/Francisco-alt-coder/-Balsas-Experience-API/actions/runs/38490614729): event push, head SHA f40bb1585f8e8e95657f3ede7f7b71099c01785d, completed/success. Logs confirmam Ubuntu 24.04, Node 24.21.0, 47 tests/47 pass/0 fail. Instalação npm ci, Prisma validate, build/generate, check e npm test aprovados. Somente ambiente descartável, sem banco real ou segredos de produção. Isso comprova CI unitário Linux, não Express conectado ao Neon ou sinais/cold start Render.
+
+Evidências privadas: backups/publicacao/autorizacao-20261013/preflight.private.json, push-verification.private.json, remote-content-verification.private.json, remote-tree.private.json, ci-run-1.private.json e ci-success.private.json. Manifesto/pacote original permanecem intactos em backups/publicacao/prompt-mestre-20261013, como registro exato do commit inicial.
+
+O usuário também solicitou atualizar este relatório após a publicação. A atualização documental usa somente este caminho já listado no manifesto, sem novos arquivos públicos; um manifesto suplementar/hash e inspeção de segredos precedem o commit documental, preservando os outros 111 blobs. Seu SHA e a confirmação final de push/CI são registrados nas evidências privadas e no retorno ao usuário, evitando autorreferência circular do documento. README/estado/registro IA entregues no pacote inicial são snapshots da preparação; este relatório atualizado prevalece.
 
 ## I. Render
 
@@ -155,23 +164,23 @@ Integração Render encontrada/sugerida, acesso não confirmado; CLI/API key/bro
 | A02 | Schema/ledger ausentes; endpoints não funcionam; migração inicial sem transação explícita | Credencial, inventário atual, backup consistente/ensaio de recuperação; depois aprovação específica das2 migrações do plano |
 | A03 | Runtime role ausente/owner excessivo | Schema e aprovação de role/grants; verificar Prisma em isolado, atributos/memberships e mínimos por objeto, sem ledger/DDL/TRUNCATE/setval |
 | A04 | Token/CORS locais prontos, DBURL/segredos não instalados | Role/credencial e acesso/aprovação config Render; segredos privados/TLS/CORS. Frontend futuro exige domínio real |
-| A05 | Divulgação/commit/push não aprovados | Revisar manifesto112 e aprovar commit/push no repo/main. Reconferir bytes/remote antes de enviar |
+| A05 — encerrado | Condições de aprovação satisfeitas; código publicado | Commit inicial/remoto/112 blobs verificados e CI aprovado; relatório atualizado no caminho já autorizado |
 | A06 | Acesso Render/deploy ausentes | Conectar Render; depois aprovar serviço Free/deploy concreto quando dependências estiverem prontas. Carga JSON é decisão de dados separada |
-| A07 | Linux/sinais/reinício/cold start reais ausentes | CI após push autorizado; runtime/banco/sinais e testes externos autorizados. CI unitário sozinho não encerra esse item |
+| A07 | CI unitário Linux aprovado; runtime integrado/sinais/reinício/cold start ausentes | Executar esses checks após ambiente autorizado; CI unitário sozinho não encerra o item |
 | A08 | Codex não inicia; alternativa deixa avisos sem triagem total | Retomar Codex quando estabilizar ou concluir triagem independente; sem alegar equivalência/aprovação Codex |
 
-**Das oito pendências abertas anteriores (A01–A08), nenhuma foi integralmente encerrada.** Avanços: A04 token/CORS locais; A05 acesso/origin/pacote/index; A06 plano/integração disponível; A07 CI preparado; A08 alternativa executada. A01/A02/A03 continuam dependentes da conexão/autorização e schema. A01–A06 bloqueados; A07/A08 não verificados integralmente.
+**Das oito pendências abertas anteriores, A05 foi RESOLVIDO. Sete permanecem abertas:** A01/A02/A03/A04/A06 BLOQUEADO; A07/A08 NÃO VERIFICADO. Avanços parciais: A04 token/CORS locais; A06 plano/integração disponível; A07 CI unitário Linux aprovado; A08 alternativa estática executada. Conexão/schema/grants/produção continuam pendentes.
 
 Novos achados: marcador de smoke reutilizado corrigido (R03); scanner não cobria token novo, ampliado (R07); diferenças acadêmicas AC03/AC10/AC14 e publicação AC21/AC22 explicitadas. Não foram adicionadas artificialmente à contagem dos16. Não há nova falha local confirmada que impeça iniciar a API. Diferenças de contrato/schema e triagem estática incompleta permanecem limitações, não conformidade certificada.
 
 ## L. Histórico
 
-Relatórios/evidências anteriores preservados. Baseline192 reproduzida, CORS none/marcadores/scanner corrigidos,4 regressões, CI/token/origin/pacote/documentação preparados. Rodada final196 sem falhas e dados/.env iguais. Retomada manteve alterações e conferiu provas/Neon/GitHub, completando documentação/index/manifesto. Versão2.0.0 mantida, sem release publicada.
+Relatórios/evidências anteriores preservados. Baseline192 reproduzida, CORS none/marcadores/scanner corrigidos,4 regressões, CI/token/origin/pacote/documentação preparados. Rodada final196 sem falhas e dados/.env iguais. Retomada manteve alterações e conferiu provas/Neon/GitHub, completando documentação/index/manifesto. Versão 2.0.0 mantida; código versionado/publicado em GitHub, sem GitHub Release ou implantação da API.
 
-Relatório anterior copiado para backups/neon/relatorio-historico-antes-prompt-mestre.md. Entradas antigas dos guias/estado são históricas. Nenhuma rotação de senha, alteração de ACL, migração histórica/dado real/infraestrutura, commit/push/deploy nesta etapa. Ações administrativas antigas não atribuídas a ela.
+Relatório anterior copiado para backups/neon/relatorio-historico-antes-prompt-mestre.md. Entradas antigas dos guias/estado são históricas. Após o aceite, commit/push GitHub foram executados como descrito em H. Nenhuma rotação de senha, alteração de ACL, migração histórica/dado real/infraestrutura ou deploy nesta etapa. Ações administrativas antigas não atribuídas a ela.
 
 ## M. Uso de IA
 
 OpenAI Codex auxiliou inspeção, correções locais, testes/config/documentação e preparo de publicação. Resultados decorrem de ferramentas executadas; conectores oficiais forneceram metadados e SQL READ ONLY. [Registro IA](registro-uso-ia.md) separa contribuições anteriores, propostas, alterações e provas.
 
-Usuário definiu objetivos/limites/destino e pediu definição da origem. Sem revisão/aceitação humana integral comprovada do código, matriz, avisos estáticos ou manifesto. Indicação anterior de preenchimento da credencial não confirmada no arquivo exato, ainda vazio. IA não inventou validação humana, conexão da aplicação, histórico Git/deploy/URL. Aprovações externas específicas e revisão pública permanecem pendentes.
+Usuário definiu objetivos/limites/destino e pediu definição da origem. Sem revisão/aceitação humana integral comprovada do código, matriz, avisos estáticos ou manifesto. Indicação anterior de preenchimento da credencial não confirmada no arquivo exato, ainda vazio. O usuário concedeu autorização condicional explícita para GitHub e atualização deste relatório; o agente verificou suas condições e executou commit/push/conferência remota/acompanhamento CI. Nenhuma revisão humana integral do código foi presumida. IA não inventou conexão da aplicação ou deploy/URL. Neon, permissões, dados, credenciais e Render permanecem fora dessa autorização.
