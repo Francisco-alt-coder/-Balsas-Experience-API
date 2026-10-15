@@ -119,6 +119,12 @@ Não há rate limiting ou teto operacional pequeno de paginação, nem SLA. A ca
 
 ## Publicação: preparação e verificações
 
+> **Implantação ainda não liberada para tráfego real.** A role `balsas_runtime_restrito` permanece `NOLOGIN`, sem credencial runtime autenticada. A importação do Blueprint deverá aguardar essa configuração privada e a verificação com Prisma.
+
+[**Abrir implantação do Blueprint no Render**](https://render.com/deploy?repo=https://github.com/Francisco-alt-coder/-Balsas-Experience-API) (exige autenticação e autorização do proprietário da conta).
+
+
+
 O [repositório GitHub](https://github.com/Francisco-alt-coder/-Balsas-Experience-API) está público, com o pacote inicial de 112 arquivos publicado em 13/10/2026 (commit `f40bb15`) e CI Linux aprovado. Em 15/10/2026 foram adicionados um Blueprint `render.yaml`, um teste HTTPS sem escrita e um workflow manual de validação remota. A configuração do Render e a URL pública **ainda não foram verificadas**. PDFs, .env, credenciais, backups e logs privados continuam excluídos do repositório.
 
 Render preparado: Blueprint publicável em [render.yaml](render.yaml), sem credenciais e com deploy automático desativado. O Blueprint gera o `API_WRITE_TOKEN` aleatoriamente na plataforma (`generateValue: true`), mas `DATABASE_URL` deve ser configurada privadamente (`sync: false`). A [ativação privada Neon e Render](docs/ativacao-privada-neon-render.md) registra o procedimento de acesso e a validação pendente. Node 24.20.0, Web Service Free/Virginia, build `npm ci --include=dev && npm run build`, start `npm start`, NODE_ENV=production, HOST=0.0.0.0, PORT da plataforma e health /health. .env.render.example usa CORS_ORIGINS=none. Token novo foi preparado somente no armazenamento privado local. DATABASE_URL de produção e acesso Render ainda faltam. **DIRECT_URL só no operador**, nunca no serviço web. render.yaml.example permanece modelo inativo, sem deploy automático.
