@@ -12,20 +12,20 @@ A revisão de organização está registrada em [auditoria de limpeza](docs/audi
 
 O projeto mantém sua arquitetura de API REST e oferece também uma interface de leitura responsiva, sem dependências adicionais. A apresentação é montada com HTML semântico, CSS e JavaScript, usando exclusivamente os registros existentes no PostgreSQL.
 
-- **Navegador:** abra \`/atracoes\` ou \`/explorar\` para visualizar os cartões de atrações, pesquisa por nome/descrição, categorias, ordenação e detalhes.
-- **Integrações:** \`GET /atracoes\` com \`Accept: application/json\` ou \`*/*\` continua retornando exatamente a lista JSON. As rotas de escrita e \`GET /atracoes/:id\` não foram alteradas.
-- **JSON no navegador:** acesse \`/atracoes?formato=json\` para visualizar a resposta original, mesmo quando o navegador envia \`Accept: text/html\`.
-- **Segurança e acessibilidade:** os dados são inseridos com \`textContent\`, há Content Security Policy, rótulos nos filtros, mensagens de status, foco visível, modal nativo e layouts responsivos.
+- **Navegador:** abra `/atracoes` ou `/explorar` para visualizar os cartões de atrações, pesquisa por nome/descrição, categorias, ordenação e detalhes.
+- **Integrações:** `GET /atracoes` com `Accept: application/json` ou `*/*` continua retornando exatamente a lista JSON. As rotas de escrita e `GET /atracoes/:id` não foram alteradas.
+- **JSON no navegador:** acesse `/atracoes?formato=json` para visualizar a resposta original, mesmo quando o navegador envia `Accept: text/html`.
+- **Segurança e acessibilidade:** os dados são inseridos com `textContent`, há Content Security Policy, rótulos nos filtros, mensagens de status, foco visível, modal nativo e layouts responsivos.
 - **Limitação:** este catálogo apenas lê as atrações; não disponibiliza login, avaliações públicas por formulário, fotos, mapas ou agendamento. Não foram inventadas informações de visitação.
 
-Testes automatizados específicos em \`tests/atracoes-web.test.mjs\` cobrem a negociação de conteúdo HTML/JSON e a entrega dos recursos estáticos. Para executar:
+Testes automatizados específicos em `tests/atracoes-web.test.mjs` cobrem a negociação de conteúdo HTML/JSON e a entrega dos recursos estáticos. Para executar:
 
-\`\`\`powershell
+```powershell
 npm ci --include=dev
 npm test
 npm run check
 npm run build
-\`\`\`
+```
 
 ## Arquitetura e dados
 
