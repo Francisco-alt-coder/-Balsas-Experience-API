@@ -1,12 +1,31 @@
 ﻿# Balsas Experience API 2.0.0
 
-API REST de atrações turísticas de Balsas-MA com Node.js 24, Express 5.2.1, Prisma 7.10.0 e PostgreSQL. **Estado em 15/10/2026:** funcionalidade local previamente comprovada (196 testes históricos); **banco Neon principal preparado e com oito registros demonstrativos; API HTTPS ainda não publicada nem validada**. O banco possui esquema e histórico criados por SQL e ainda exige `prisma migrate status` por conexão direta autenticada. A role de privilégio mínimo existe com login desativado, aguardando configuração privada. Veja o [registro da etapa remota](docs/publicacao-neon-2026-10-15.md) e a [auditoria histórica](docs/relatorio-final-pendencias-publicacao.md).
+API REST de atrações turísticas de Balsas-MA com Node.js 24, Express 5.2.1, Prisma 7.10.0 e PostgreSQL. **Estado atualizado em 15/10/2026:** API HTTPS publicada no Render, com leitura das oito atrações demonstrativas confirmada em navegador. A interface visual está em implementação nesta atualização; a validação externa das rotas de escrita continua pendente. Os 196 testes locais são históricos, não novos resultados. O banco possui esquema e histórico criados por SQL e ainda exige `prisma migrate status` por conexão direta autenticada. A role de privilégio mínimo existe com login desativado, aguardando configuração privada. Veja o [registro da etapa remota](docs/publicacao-neon-2026-10-15.md) e a [auditoria histórica](docs/relatorio-final-pendencias-publicacao.md).
 
 O [relatório de prontidão](docs/estado-publicacao.md) registra os resultados locais anteriores. O [guia de publicação](docs/guia-publicacao-final.md) define ações futuras sujeitas a autorização; a [rotação administrativa](docs/estado-publicacao.md) já foi comprovada.
 
 O conector Neon confirmou projeto `balsas-experience-api` (`little-surf-82939047`), branch `main`, database `balsas_experience` e pooler desabilitado. O inventário inicial encontrou banco vazio; após mudanças controladas, existem cinco tabelas de domínio, o ledger Prisma, 4 FKs, 14 índices, 8 atrações, 15 tags, 32 relações e 3 categorias, sem órfãos. Resultados locais históricos: 47 unitários Linux e 196 verificações locais; repetições não são somadas. A [matriz acadêmica](docs/matriz-rastreabilidade-academica.md) registra os requisitos dos três PDFs e as diferenças do contrato existente.
 
 A revisão de organização está registrada em [auditoria de limpeza](docs/auditoria-limpeza.md). Código, migrações, backups e evidências acadêmicas foram preservados; somente logs npm antigos foram removidos. Essa revisão não autoriza publicação.
+
+## Catálogo visual de atrações (interface web)
+
+O projeto mantém sua arquitetura de API REST e oferece também uma interface de leitura responsiva, sem dependências adicionais. A apresentação é montada com HTML semântico, CSS e JavaScript, usando exclusivamente os registros existentes no PostgreSQL.
+
+- **Navegador:** abra \`/atracoes\` ou \`/explorar\` para visualizar os cartões de atrações, pesquisa por nome/descrição, categorias, ordenação e detalhes.
+- **Integrações:** \`GET /atracoes\` com \`Accept: application/json\` ou \`*/*\` continua retornando exatamente a lista JSON. As rotas de escrita e \`GET /atracoes/:id\` não foram alteradas.
+- **JSON no navegador:** acesse \`/atracoes?formato=json\` para visualizar a resposta original, mesmo quando o navegador envia \`Accept: text/html\`.
+- **Segurança e acessibilidade:** os dados são inseridos com \`textContent\`, há Content Security Policy, rótulos nos filtros, mensagens de status, foco visível, modal nativo e layouts responsivos.
+- **Limitação:** este catálogo apenas lê as atrações; não disponibiliza login, avaliações públicas por formulário, fotos, mapas ou agendamento. Não foram inventadas informações de visitação.
+
+Testes automatizados específicos em \`tests/atracoes-web.test.mjs\` cobrem a negociação de conteúdo HTML/JSON e a entrega dos recursos estáticos. Para executar:
+
+\`\`\`powershell
+npm ci --include=dev
+npm test
+npm run check
+npm run build
+\`\`\`
 
 ## Arquitetura e dados
 
