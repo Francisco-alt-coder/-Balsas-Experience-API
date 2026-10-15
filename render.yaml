@@ -1,0 +1,32 @@
+# Publicação explícita: importar este Blueprint no Render exige conectar a conta.
+# Os segredos permanecem no painel do Render e nunca devem ser versionados.
+services:
+  - type: web
+    name: balsas-experience-api
+    runtime: node
+    region: virginia
+    plan: free
+    branch: main
+    autoDeployTrigger: "off"
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "24.20.0"
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: DB_POOL_MAX
+        value: "10"
+      - key: DB_CONNECTION_TIMEOUT_MS
+        value: "5000"
+      - key: DB_QUERY_TIMEOUT_MS
+        value: "10000"
+      - key: CORS_ORIGINS
+        value: none
+      - key: DATABASE_URL
+        sync: false
+      - key: API_WRITE_TOKEN
+        sync: false
