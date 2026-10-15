@@ -1,0 +1,32 @@
+name: HTTPS remote smoke (read-only)
+on:
+  workflow_dispatch:
+    inputs:
+      public_api_url:
+        description: "URL HTTPS publicada, sem senha, caminho, query ou fragmento"
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  remote-readonly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '24'
+      - name: Verificar sintaxe do smoke
+        run: node --check scripts/test-public-security.mjs
+      - name: Testar leituras remotas
+        env:
+          PUBLIC_API_URL: ${{ inputs.public_api_url }}
+        run: node scripts/test-public-readonly.mjs
+      - name: Validar segurança HTTP remota
+        env:
+          PUBLIC_API_URL: ${{ inputs.public_api_url }}
+        run: node scripts/test-public-security.mjs
+# Não executa escrita, seed, migração ou deploy.
