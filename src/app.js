@@ -3,6 +3,7 @@ import './lib/load-runtime-env.js';
 import express from 'express';
 import { configurarCors } from './middlewares/cors.js';
 import atracoesRoutes from './routes/atracoes.routes.js';
+import webRoutes from './routes/web.routes.js';
 import { listarCategorias } from './controllers/atracoes.controller.js';
 import prisma from './lib/prisma.js';
 import { validarTokenConfigurado } from './middlewares/autenticacao.js';
@@ -32,6 +33,8 @@ app.get('/', (req, res) => {
 app.get('/health', criarHealthCheck(prisma));
 app.get('/live', liveness);
 
+// A apresentação HTML é solicitada apenas por navegadores; a API REST mantém JSON.
+app.use(webRoutes);
 app.get('/categorias', listarCategorias);
 app.use('/atracoes', atracoesRoutes);
 

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#103a39">
+  <meta name="description" content="Explore as atrações turísticas cadastradas em Balsas, Maranhão. Pesquise lugares, categorias e informações de visitação.">
+  <title>Explore Balsas | Catálogo de atrações</title>
+  <link rel="stylesheet" href="/site/atracoes.css">
+  <script src="/site/atracoes.js" defer></script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <header class="cabecalho">
+    <div class="limite barra">
+      <a class="marca" href="/explorar" aria-label="Explore Balsas, página inicial">
+        <span class="marca-icone" aria-hidden="true">B</span>
+        <span class="marca-texto">Explore <strong>Balsas</strong><small>GUIA DE ATRAÇÕES</small></span>
+      </a>
+      <nav aria-label="Navegação principal" class="navegacao">
+        <a href="#catalogo" aria-current="page">Atrações</a>
+        <a class="link-api" href="/atracoes?formato=json">Ver JSON da API <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero">
+      <div class="limite hero-interno">
+        <div class="hero-texto">
+          <p class="sobretitulo"><span class="ponto" aria-hidden="true"></span> BALSAS · MARANHÃO</p>
+          <h1>Descubra lugares que contam a história de <em>Balsas.</em></h1>
+          <p class="hero-descricao">Explore atrações históricas, espaços de lazer e paisagens naturais cadastradas no nosso guia. Tudo em um só lugar.</p>
+          <a href="#catalogo" class="botao-hero">Explorar atrações <span aria-hidden="true">↓</span></a>
+        </div>
+        <aside class="hero-painel" aria-label="Resumo do catálogo">
+          <div class="painel-ornamento" aria-hidden="true"><span></span><span></span><span></span></div>
+          <p class="painel-marca">SEU PRÓXIMO DESTINO</p>
+          <p class="painel-destaque">Explore<br><strong>Balsas.</strong></p>
+          <div class="painel-linha"></div>
+          <div class="painel-numeros">
+            <div><strong id="totalHero">—</strong><small>atrações</small></div>
+            <div><strong id="totalCategorias">—</strong><small>categorias</small></div>
+            <div><strong>MA</strong><small>estado</small></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="secao-catalogo limite" id="catalogo" aria-labelledby="tituloCatalogo">
+      <div class="introducao">
+        <div>
+          <p class="secao-codigo">CONHEÇA A CIDADE</p>
+          <h2 id="tituloCatalogo">Atrações para explorar</h2>
+          <p>Encontre lugares por nome ou escolha uma categoria para começar.</p>
+        </div>
+        <span class="contagem" id="contagem">Carregando atrações...</span>
+      </div>
+
+      <form id="filtros" class="filtros" role="search" autocomplete="off">
+        <div class="campo campo-pesquisa">
+          <label for="pesquisa">Buscar uma atração</label>
+          <input id="pesquisa" type="search" placeholder="Ex.: cachoeira, praça, rio..." maxlength="120">
+        </div>
+        <div class="campo">
+          <label for="categoria">Categoria</label>
+          <select id="categoria">
+            <option value="">Todas as categorias</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="ordenacao">Ordenar por</label>
+          <select id="ordenacao">
+            <option value="padrao">Ordem do catálogo</option>
+            <option value="nome">Nome (A–Z)</option>
+          </select>
+        </div>
+        <button type="reset" id="limpar" class="botao-limpar">Limpar filtros</button>
+      </form>
+      <div id="categoriasRapidas" class="categorias-rapidas" role="group" aria-label="Filtrar por categoria"></div>
+
+      <p class="aviso" id="aviso" role="status" aria-live="polite">Buscando atrações...</p>
+      <div id="lista" class="grade" aria-label="Lista de atrações"></div>
+      <div id="vazio" class="sem-resultados" hidden>
+        <h3>Nenhuma atração encontrada</h3>
+        <p>Tente outra palavra ou remova os filtros para ver mais lugares.</p>
+        <button type="button" id="limparVazio" class="botao-hero botao-escuro">Limpar filtros</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="detalhes" class="modal" aria-labelledby="detalheTitulo">
+    <div class="modal-cabecalho">
+      <span class="modal-selo">DETALHES DA ATRAÇÃO</span>
+      <button type="button" id="fecharDetalhes" class="modal-fechar" aria-label="Fechar detalhes">×</button>
+    </div>
+    <h2 id="detalheTitulo"></h2>
+    <p id="detalheCategoria" class="modal-categoria"></p>
+    <p id="detalheDescricao" class="modal-descricao"></p>
+    <dl class="modal-dados">
+      <div><dt>Localização</dt><dd id="detalheLocalizacao"></dd></div>
+      <div><dt>Distância do centro</dt><dd id="detalheDistancia"></dd></div>
+    </dl>
+    <div class="modal-tags" id="detalheTags"></div>
+    <a class="modal-json" id="detalheJson" href="#" target="_blank" rel="noopener noreferrer">Abrir dados JSON da atração ↗</a>
+  </dialog>
+
+  <footer class="rodape">
+    <div class="limite rodape-interno">
+      <span><strong>Explore Balsas</strong> · Catálogo demonstrativo</span>
+      <span>Dados fornecidos pela Balsas Experience API · <a href="/health">Status da API</a></span>
+    </div>
+  </footer>
+</body>
+</html>
