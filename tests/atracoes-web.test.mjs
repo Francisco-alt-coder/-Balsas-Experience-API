@@ -11,6 +11,10 @@ test('catálogo HTML e contrato JSON coexistem no mesmo caminho', async (t) => {
   app.get('/atracoes', (_req, res) => res.json([
     { id: 1, nome: 'Exemplo de teste', categoria: 'Lazer', descricao: 'Descrição simulada' },
   ]));
+  app.get('/atracoes/:id', (req, res) => {
+    if (req.params.id !== '1') return res.status(404).json({ erro: 'Atração não encontrada' });
+    return res.json({ id: 1, nome: 'Exemplo de teste', categoria: 'Lazer', descricao: 'Descrição simulada', localizacao: { cidade: 'Balsas', estado: 'MA' }, tags: ['teste'], totalAvaliacoes: 0 });
+  });
   const servidor = await new Promise((resolve) => {
     const http = app.listen(0, '127.0.0.1', () => resolve(http));
   });
@@ -44,6 +48,38 @@ test('catálogo HTML e contrato JSON coexistem no mesmo caminho', async (t) => {
     assert.match(resposta.headers.get('content-type'), /application\/json/);
   });
 
+  await t.test('navegação por /atracoes/1 mostra página HTML estilizada', async () => {
+    const resposta = await fetch(origem + '/atracoes/1', { headers: { Accept: 'text/html,application/xhtml+xml' } });
+    assert.equal(resposta.status, 200);
+    assert.match(resposta.headers.get('content-type'), /text\/html/);
+    assert.match(resposta.headers.get('vary'), /Accept/i);
+    assert.match(resposta.headers.get('content-security-policy'), /script-src 'self'/);
+    const html = await resposta.text();
+    assert.match(html, /<main id="conteudo">/);
+    assert.match(html, /Informações do local/);
+    assert.match(html, /\/site\/atracao\.css/);
+    assert.match(html, /\/site\/atracao\.js/);
+  });
+
+  await t.test('GET /atracoes/1 permanece JSON para clientes REST', async () => {
+    for (const accept of ['application/json', '*/*']) {
+      const resposta = await fetch(origem + '/atracoes/1', { headers: { Accept: accept } });
+      assert.equal(resposta.status, 200);
+      assert.match(resposta.headers.get('content-type'), /application\/json/);
+      const dados = await resposta.json();
+      assert.equal(dados.nome, 'Exemplo de teste');
+    }
+    const respostaHtmlForcandoJson = await fetch(origem + '/atracoes/1?formato=json', { headers: { Accept: 'text/html' } });
+    assert.equal(respostaHtmlForcandoJson.status, 200);
+    assert.match(respostaHtmlForcandoJson.headers.get('content-type'), /application\/json/);
+  });
+
+  await t.test('IDs inexistentes mantêm status 404 no contrato JSON', async () => {
+    const resposta = await fetch(origem + '/atracoes/9999', { headers: { Accept: 'application/json' } });
+    assert.equal(resposta.status, 404);
+    assert.equal((await resposta.json()).erro, 'Atração não encontrada');
+  });
+
   await t.test('URL independente e arquivos estáticos funcionam', async () => {
     const pagina = await fetch(origem + '/explorar');
     assert.equal(pagina.status, 200);
@@ -54,5 +90,11 @@ test('catálogo HTML e contrato JSON coexistem no mesmo caminho', async (t) => {
     const script = await fetch(origem + '/site/atracoes.js');
     assert.equal(script.status, 200);
     assert.match(script.headers.get('content-type'), /javascript/);
+    const detalheCss = await fetch(origem + '/site/atracao.css');
+    assert.equal(detalheCss.status, 200);
+    assert.match(detalheCss.headers.get('content-type'), /text\/css/);
+    const detalheJs = await fetch(origem + '/site/atracao.js');
+    assert.equal(detalheJs.status, 200);
+    assert.match(detalheJs.headers.get('content-type'), /javascript/);
   });
 });
