@@ -69,3 +69,40 @@
   .detalhe-final { padding: 25px 20px; flex-direction: column; align-items: flex-start; margin-bottom: 45px; }
   .detalhe-final .botao-hero { width: 100%; justify-content: center; flex-shrink: 1; }
 }
+
+
+/* Seção de JSON: reprodução visual da referência fornecida e dados reais da API. */
+.detalhe-corpo { grid-template-columns: minmax(0, 1.95fr) minmax(300px, .9fr); gap: clamp(26px, 3.2vw, 55px); }
+.detalhe-sobre { padding-bottom: 34px; margin-bottom: 35px; }
+.detalhe-json-secao { border-bottom: 0; margin-bottom: 0; }
+.detalhe-json-secao h2 { color: #173d36; font: 700 clamp(1.85rem, 2.6vw, 2.55rem)/1.18 Georgia, serif; margin: 5px 0 12px; }
+.detalhe-json-explicacao { margin-bottom: 24px; font-size: 15px; line-height: 1.65; }
+.json-card { overflow: hidden; border: 1px solid #dce8da; border-radius: 17px; background: #fff; box-shadow: 0 9px 24px rgba(22, 63, 57, .045); }
+.json-card-topo { display: flex; gap: 15px; justify-content: space-between; align-items: center; padding: 11px 18px; border-bottom: 1px solid #e3ebdf; background: #eaf2e8; }
+.json-card-titulo { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 800; color: #173f34; }
+.json-card-simbolo { font-family: Consolas, monospace; font-size: 19px; font-weight: 800; }
+.json-card-botao { flex: none; padding: 8px 13px; border-radius: 12px; border: 1px solid #d5e3d0; background: #f9fbf7; color: #25473a; font-size: 12px; font-weight: 750; }
+.json-card-botao:hover { background: #fff; border-color: #aec9a9; }
+.json-card-corpo { display: flex; max-width: 100%; overflow: auto; background: #fff; overscroll-behavior-inline: contain; }
+.json-linhas, .json-code { box-sizing: border-box; margin: 0; padding-top: 16px; padding-bottom: 18px; line-height: 1.8; font-family: "Cascadia Code", Consolas, "Liberation Mono", monospace; font-size: 12.5px; }
+.json-linhas { flex: none; position: sticky; left: 0; z-index: 1; width: 49px; padding-right: 11px; padding-left: 8px; color: #97a8a2; text-align: right; background: #f8faf8; border-right: 1px solid #ebf0ea; user-select: none; }
+.json-code { flex: none; min-width: max-content; padding-left: 17px; padding-right: 24px; color: #213e36; white-space: pre; }
+.json-numero-linha, .json-code-linha { display: block; min-height: 1.8em; }
+.json-token-chave { color: #bb3027; }
+.json-token-texto { color: #045ec9; }
+.json-token-numero { color: #b65722; }
+.json-token-booleano { color: #874da0; }
+.json-status-copia { min-height: 20px; margin: 8px 2px 0; font-size: 12px; color: #3d6b51; }
+.detalhe-api-cartao { background: linear-gradient(135deg, #0e4b3b 0%, #083c31 100%); }
+.detalhe-api-cartao a { color: #d9eda9; }
+@media (max-width: 880px) {
+  .detalhe-corpo { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .json-card-topo { padding: 10px 12px; }
+  .json-card-titulo { font-size: 12px; }
+  .json-card-botao { font-size: 11px; padding: 8px 10px; }
+  .json-linhas, .json-code { font-size: 11.5px; }
+  .json-linhas { width: 39px; padding-right: 8px; }
+  .json-code { padding-left: 11px; }
+}
