@@ -1,0 +1,71 @@
+.detalhe-mensagem { min-height: 55vh; display: grid; place-items: center; font-weight: 650; color: #547369; text-align: center; }
+.detalhe-hero { background: #0b302e; color: #fff; overflow: hidden; }
+.detalhe-hero-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); gap: clamp(26px, 5vw, 75px); align-items: center; padding-top: 45px; padding-bottom: 74px; }
+.caminho { display: flex; gap: 12px; align-items: center; font-size: 12px; color: #d0e2d7; margin-bottom: 47px; }
+.caminho a { text-underline-offset: 4px; }
+.caminho a:hover { color: #c9e494; }
+.detalhe-sobretitulo { display: flex; align-items: center; gap: 11px; color: #d2e7b5; font-weight: 800; letter-spacing: .18em; font-size: 11px; margin-bottom: 23px; }
+.detalhe-categoria { display: inline-flex; padding: 7px 13px; border: 1px solid #6f9b7f; border-radius: 99px; font-weight: 750; font-size: 12px; color: #e3f0d3; background: #1a4a40; }
+.detalhe-hero h1 { margin: 20px 0 22px; font-size: clamp(2.8rem, 4.6vw, 4.7rem); line-height: 1.12; max-width: 760px; overflow-wrap: anywhere; }
+.detalhe-hero-resumo { color: #d7e8e0; font-size: 15px; line-height: 1.8; max-width: 550px; margin: 0 0 28px; }
+.detalhe-arte { height: 370px; width: 100%; position: relative; overflow: hidden; border-radius: 22px; border: 1px solid rgba(221,248,221,.32); background: linear-gradient(145deg, #386d59 0%, #225449 45%, #103c36 100%); box-shadow: 0 23px 50px rgba(0,0,0,.15); }
+.detalhe-arte::before { content: ''; width: 180%; aspect-ratio: 1; border-radius: 50%; position: absolute; left: -55%; bottom: -155%; background: rgba(207,235,164,.10); }
+.detalhe-arte-circulo { position: absolute; border-radius: 50%; border: 1px solid rgba(226,246,194,.21); }
+.detalhe-arte-circulo-a { height: 380px; width: 380px; right: -115px; top: -166px; }
+.detalhe-arte-circulo-b { height: 280px; width: 280px; right: -65px; top: -118px; }
+.detalhe-arte-circulo-c { height: 190px; width: 190px; right: -20px; top: -74px; }
+.detalhe-arte-letra { position: absolute; inset: 22px 0 34px; display: grid; place-items: center; color: #d0e99c; font: italic 200px/1 Georgia, serif; opacity: .85; }
+.detalhe-arte-rodape { position: absolute; bottom: 22px; left: 25px; right: 25px; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid rgba(240,250,233,.25); padding-top: 17px; font-size: 10px; letter-spacing: .16em; font-weight: 750; color: #dae9d5; }
+.detalhe-corpo { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(290px, .8fr); gap: clamp(24px, 4vw, 64px); padding-top: 66px; padding-bottom: 54px; align-items: start; scroll-margin-top: 20px; }
+.detalhe-coluna-principal { min-width: 0; }
+.detalhe-bloco { padding-bottom: 34px; margin-bottom: 34px; border-bottom: 1px solid var(--linha); }
+.detalhe-bloco:last-child { border-bottom: 0; margin-bottom: 0; }
+.detalhe-bloco h2, .detalhe-info-cartao h2, .detalhe-final h2 { color: #173d36; font: 700 clamp(1.65rem, 2.4vw, 2.2rem)/1.22 Georgia, serif; margin: 5px 0 20px; letter-spacing: -.02em; }
+.detalhe-descricao { line-height: 1.88; color: #536c60; font-size: 16px; max-width: 650px; overflow-wrap: anywhere; }
+.detalhe-ajuda { color: #63796a; font-size: 13px; }
+.detalhe-tags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 20px; }
+.detalhe-tag { font-size: 13px; color: #245d46; background: #e9f1e6; padding: 8px 13px; border: 1px solid #d7e4d5; border-radius: 99px; font-weight: 650; }
+.detalhe-info-cartao { border: 1px solid #dbe5da; border-radius: 17px; background: #fff; box-shadow: 0 9px 32px rgba(26,68,49,.045); overflow: hidden; }
+.detalhe-info-cabecalho { background: #e8f0e6; padding: 24px 27px 19px; }
+.detalhe-info-cabecalho .secao-codigo { margin-bottom: 7px; }
+.detalhe-info-cartao h2 { font-size: 23px; margin: 0; }
+.detalhe-propriedades { padding: 4px 27px 5px; margin: 0; }
+.detalhe-propriedades div { padding: 19px 0; display: grid; gap: 7px; border-bottom: 1px solid #e5ebe3; }
+.detalhe-propriedades dt { color: #697e70; font-size: 12px; font-weight: 600; }
+.detalhe-propriedades dd { margin: 0; color: #254a3f; font-size: 15px; font-weight: 750; overflow-wrap: anywhere; }
+.detalhe-propriedades div:last-child { border-bottom: 0; }
+.detalhe-link-voltar { margin: 10px 27px 26px; display: inline-flex; padding: 10px 0; font-size: 13px; font-weight: 750; color: #316c4d; text-decoration: none; }
+.detalhe-link-voltar:hover { text-decoration: underline; }
+.detalhe-api-cartao { border-radius: 15px; background: #163f39; padding: 26px 27px; color: white; margin-top: 20px; }
+.detalhe-api-selo { font-size: 10px; letter-spacing: .13em; color: #c9e494; font-weight: 800; }
+.detalhe-api-cartao h3 { font: 700 22px Georgia,serif; margin-bottom: 10px; }
+.detalhe-api-cartao p:not(.detalhe-api-selo) { color: #caddd1; font-size: 13px; line-height: 1.7; margin-bottom: 18px; }
+.detalhe-api-cartao a { color: #d3efa7; font-weight: 750; text-underline-offset: 4px; font-size: 13px; }
+.detalhe-final { margin-top: 0; margin-bottom: 75px; border-radius: 18px; padding: 34px 37px; background: #e7efdf; display: flex; align-items: center; justify-content: space-between; gap: 25px; }
+.detalhe-final h2 { margin-bottom: 11px; }
+.detalhe-final p:last-child { color: #547063; font-size: 14px; margin: 0; }
+.detalhe-final .botao-hero { flex-shrink: 0; background: #164b3c; color: #fff; }
+.detalhe-final .botao-hero:hover { background: #296949; }
+.detalhe-erro { min-height: 60vh; padding-top: 80px; padding-bottom: 80px; }
+.detalhe-erro h1 { font-size: clamp(2rem,4vw,3.4rem); max-width: 780px; color: #1c483b; }
+.detalhe-erro p:not(.secao-codigo) { color: #546e60; font-size: 16px; margin-bottom: 28px; }
+@media (max-width: 880px) {
+  .detalhe-hero-grid { grid-template-columns: 1fr; }
+  .detalhe-arte { height: 250px; }
+  .detalhe-arte-letra { font-size: 150px; }
+  .detalhe-corpo { grid-template-columns: 1fr; }
+  .detalhe-coluna-lateral { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .detalhe-api-cartao { margin-top: 0; }
+}
+@media (max-width: 620px) {
+  .detalhe-hero-grid { padding-top: 25px; padding-bottom: 44px; gap: 25px; }
+  .caminho { margin-bottom: 35px; }
+  .detalhe-hero h1 { font-size: clamp(2.15rem,10vw,3rem); }
+  .detalhe-arte { height: 198px; }
+  .detalhe-arte-letra { font-size: 105px; }
+  .detalhe-arte-rodape { left: 18px; right: 18px; bottom: 15px; font-size: 9px; }
+  .detalhe-corpo { padding-top: 44px; padding-bottom: 30px; }
+  .detalhe-coluna-lateral { grid-template-columns: 1fr; }
+  .detalhe-final { padding: 25px 20px; flex-direction: column; align-items: flex-start; margin-bottom: 45px; }
+  .detalhe-final .botao-hero { width: 100%; justify-content: center; flex-shrink: 1; }
+}
