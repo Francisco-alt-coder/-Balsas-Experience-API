@@ -57,6 +57,13 @@ test('catálogo HTML e contrato JSON coexistem no mesmo caminho', async (t) => {
     const html = await resposta.text();
     assert.match(html, /<main id="conteudo">/);
     assert.match(html, /Informações do local/);
+    assert.match(html, /Sobre esta atração/);
+    assert.match(html, /Resposta em JSON/);
+    assert.match(html, /Copiar JSON/);
+    assert.match(html, /id="jsonCode"/);
+    assert.match(html, /id="jsonLinhas"/);
+    assert.doesNotMatch(html, /O que você encontra aqui/);
+    assert.doesNotMatch(html, /id="resumoAvaliacoes"/);
     assert.match(html, /\/site\/atracao\.css/);
     assert.match(html, /\/site\/atracao\.js/);
   });
@@ -96,5 +103,12 @@ test('catálogo HTML e contrato JSON coexistem no mesmo caminho', async (t) => {
     const detalheJs = await fetch(origem + '/site/atracao.js');
     assert.equal(detalheJs.status, 200);
     assert.match(detalheJs.headers.get('content-type'), /javascript/);
+    const js = await detalheJs.text();
+    assert.match(js, /JSON\.stringify\(atracao, null, 2\)/);
+    assert.match(js, /navigator\.clipboard\.writeText/);
+    assert.doesNotMatch(js, /\.innerHTML\s*=/);
+    const css = await detalheCss.text();
+    assert.match(css, /\.json-token-chave/);
+    assert.match(css, /\.json-card-topo/);
   });
 });
