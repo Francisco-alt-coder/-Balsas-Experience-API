@@ -13,10 +13,10 @@ A revisão de organização está registrada em [auditoria de limpeza](docs/audi
 O projeto mantém sua arquitetura de API REST e oferece também uma interface de leitura responsiva, sem dependências adicionais. A apresentação é montada com HTML semântico, CSS e JavaScript, usando exclusivamente os registros existentes no PostgreSQL.
 
 - **Navegador:** abra `/atracoes` ou `/explorar` para visualizar os cartões de atrações, pesquisa por nome/descrição, categorias, ordenação e detalhes.
-- **Detalhes visuais:** no modal, a opção **Ver página completa da atração** abre `/atracoes/:id` como HTML, com categoria, descrição, localização, distância do centro, temas e resumo das avaliações realmente cadastradas.
+- **Detalhes visuais:** no modal, **Ver página completa da atração** abre `/atracoes/:id` em HTML, com descrição, card de localização/categoria/distância e **Resposta em JSON** formatada, numerada e com destaque de sintaxe. O botão **Copiar JSON** copia os dados originais recebidos da API. A mesma página funciona para todos os IDs válidos; não exibe avaliações ou temas como seções independentes.
 - **Integrações:** `GET /atracoes` e `GET /atracoes/:id` com `Accept: application/json` ou `*/*` continuam retornando o mesmo JSON, sem alterar contratos. As rotas de escrita não foram modificadas.
 - **JSON no navegador:** use `/atracoes?formato=json` para a lista e `/atracoes/1?formato=json` para um registro individual, mesmo com `Accept: text/html`.
-- **Segurança e acessibilidade:** os dados são inseridos com `textContent`, há Content Security Policy, rótulos nos filtros, mensagens de status, foco visível, modal nativo e layouts responsivos.
+- **Segurança e acessibilidade:** os dados são inseridos com `textContent`/nós de texto (sem `innerHTML`), há Content Security Policy, rótulos, mensagens de status acessíveis, foco visível e layout responsivo. A cópia do JSON exige permissão do navegador e informa eventual falha.
 - **Limitação:** este catálogo apenas lê as atrações; não disponibiliza login, avaliações públicas por formulário, fotos, mapas ou agendamento. Não foram inventadas informações de visitação.
 
 Testes automatizados específicos em `tests/atracoes-web.test.mjs` cobrem a negociação de conteúdo HTML/JSON e a entrega dos recursos estáticos. Para executar:
