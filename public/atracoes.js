@@ -56,8 +56,9 @@ function abrirDetalhes(atracao) {
     tags.append(criarElemento('span', 'tag', tag));
   });
   const id = Number(atracao.id);
+  // O modal continua acessível; o link abre a página visual do lugar.
   document.querySelector('#detalheJson').href = Number.isSafeInteger(id) && id > 0
-    ? '/atracoes/' + id : '/atracoes?formato=json';
+    ? '/atracoes/' + id : '/explorar';
   if (typeof elementos.dialogo.showModal === 'function') elementos.dialogo.showModal();
 }
 
