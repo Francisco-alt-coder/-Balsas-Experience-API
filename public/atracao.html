@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#103a39">
+  <meta name="description" content="Conheça os detalhes de uma atração do catálogo turístico Explore Balsas.">
+  <title>Detalhes da atração | Explore Balsas</title>
+  <link rel="stylesheet" href="/site/atracoes.css">
+  <link rel="stylesheet" href="/site/atracao.css">
+  <script src="/site/atracao.js" defer></script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <header class="cabecalho">
+    <div class="limite barra">
+      <a class="marca" href="/explorar" aria-label="Explore Balsas, voltar ao catálogo">
+        <span class="marca-icone" aria-hidden="true">B</span>
+        <span class="marca-texto">Explore <strong>Balsas</strong><small>GUIA DE ATRAÇÕES</small></span>
+      </a>
+      <nav class="navegacao" aria-label="Navegação principal">
+        <a href="/explorar">Todas as atrações</a>
+        <a class="link-api" href="/atracoes?formato=json">API REST <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <div id="mensagem" class="limite detalhe-mensagem" role="status" aria-live="polite">
+      Carregando informações da atração...
+    </div>
+
+    <div id="paginaAtracao" hidden>
+      <section class="detalhe-hero" aria-labelledby="tituloAtracao">
+        <div class="limite detalhe-hero-grid">
+          <div class="detalhe-hero-texto">
+            <nav class="caminho" aria-label="Você está aqui">
+              <a href="/explorar">Explorar Balsas</a>
+              <span aria-hidden="true">/</span>
+              <span>Atração</span>
+            </nav>
+            <p class="detalhe-sobretitulo"><span class="ponto" aria-hidden="true"></span> CONHEÇA BALSAS · MA</p>
+            <span class="detalhe-categoria" id="categoriaHero"></span>
+            <h1 id="tituloAtracao">Atração</h1>
+            <p class="detalhe-hero-resumo">Um dos lugares presentes no catálogo de atrações turísticas de Balsas, Maranhão.</p>
+            <a href="#informacoes" class="botao-hero">Conhecer esta atração <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="detalhe-arte" aria-hidden="true">
+            <div class="detalhe-arte-circulo detalhe-arte-circulo-a"></div>
+            <div class="detalhe-arte-circulo detalhe-arte-circulo-b"></div>
+            <div class="detalhe-arte-circulo detalhe-arte-circulo-c"></div>
+            <span class="detalhe-arte-letra">B</span>
+            <div class="detalhe-arte-rodape"><span>EXPLORE BALSAS</span><span id="numeroHero">ATRAÇÃO</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="limite detalhe-corpo" id="informacoes" aria-labelledby="tituloSobre">
+        <div class="detalhe-coluna-principal">
+          <article class="detalhe-bloco">
+            <p class="secao-codigo">DESCUBRA O LUGAR</p>
+            <h2 id="tituloSobre">Sobre esta atração</h2>
+            <p id="descricaoAtracao" class="detalhe-descricao"></p>
+          </article>
+
+          <section class="detalhe-bloco" aria-labelledby="tituloTemas">
+            <p class="secao-codigo">CARACTERÍSTICAS</p>
+            <h2 id="tituloTemas">O que você encontra aqui</h2>
+            <p class="detalhe-ajuda">Temas associados a esta atração no catálogo.</p>
+            <div id="tagsAtracao" class="detalhe-tags"></div>
+          </section>
+
+          <section class="detalhe-bloco" aria-labelledby="tituloAvaliacoes">
+            <p class="secao-codigo">INFORMAÇÕES CADASTRADAS</p>
+            <h2 id="tituloAvaliacoes">Avaliações</h2>
+            <p id="resumoAvaliacoes" class="detalhe-descricao"></p>
+          </section>
+        </div>
+
+        <aside class="detalhe-coluna-lateral" aria-labelledby="tituloInformacoes">
+          <section class="detalhe-info-cartao">
+            <div class="detalhe-info-cabecalho">
+              <p class="secao-codigo">GUIA DE ATRAÇÕES</p>
+              <h2 id="tituloInformacoes">Informações do local</h2>
+            </div>
+            <dl class="detalhe-propriedades">
+              <div><dt>Localização</dt><dd id="localizacaoAtracao"></dd></div>
+              <div><dt>Categoria</dt><dd id="categoriaAtracao"></dd></div>
+              <div><dt>Distância do centro</dt><dd id="distanciaAtracao"></dd></div>
+            </dl>
+            <a class="detalhe-link-voltar" href="/explorar">← Voltar a todas as atrações</a>
+          </section>
+          <section class="detalhe-api-cartao">
+            <p class="detalhe-api-selo">PARA DESENVOLVEDORES</p>
+            <h3>Dados da API REST</h3>
+            <p>Consulte as informações originais desta atração em formato JSON.</p>
+            <a id="linkJson" href="/atracoes?formato=json" target="_blank" rel="noopener noreferrer">Visualizar JSON <span aria-hidden="true">↗</span></a>
+          </section>
+        </aside>
+      </section>
+
+      <section class="limite detalhe-final">
+        <div>
+          <p class="secao-codigo">CONTINUE DESCOBRINDO</p>
+          <h2>Há mais lugares para conhecer.</h2>
+          <p>Veja as outras atrações cadastradas no guia.</p>
+        </div>
+        <a class="botao-hero" href="/explorar">Explorar todas as atrações <span aria-hidden="true">→</span></a>
+      </section>
+    </div>
+
+    <section id="erroAtracao" class="limite detalhe-erro" hidden aria-labelledby="tituloErro">
+      <p class="secao-codigo">ATRAÇÃO INDISPONÍVEL</p>
+      <h1 id="tituloErro">Não foi possível abrir esta atração.</h1>
+      <p id="descricaoErro">Tente novamente ou volte para o catálogo.</p>
+      <a class="botao-hero" href="/explorar">Voltar ao catálogo <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="limite rodape-interno">
+      <span><strong>Explore Balsas</strong> · Catálogo demonstrativo</span>
+      <span>Informações da Balsas Experience API · <a href="/health">Status da API</a></span>
+    </div>
+  </footer>
+</body>
+</html>
