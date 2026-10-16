@@ -23,6 +23,68 @@ function localizacaoFormatada(atracao) {
   return partes.length ? partes.join(' · ') : 'Não informada';
 }
 
+// Um único conteúdo é utilizado na visualização e na cópia, sem inventar campos.
+let jsonParaCopiar = '';
+
+function construirLinhaJson(linha) {
+  const elemento = document.createElement('span');
+  elemento.className = 'json-code-linha';
+  const padrao = /"(?:\\.|[^"\\])*"|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?|\b(?:true|false|null)\b/g;
+  let inicio = 0;
+  for (const token of linha.matchAll(padrao)) {
+    const posicao = token.index;
+    if (posicao > inicio) {
+      elemento.append(document.createTextNode(linha.slice(inicio, posicao)));
+    }
+    const texto = token[0];
+    const tipo = texto.startsWith('"')
+      ? (/^\s*:/.test(linha.slice(posicao + texto.length)) ? 'chave' : 'texto')
+      : (/^(?:true|false|null)$/.test(texto) ? 'booleano' : 'numero');
+    const destaque = document.createElement('span');
+    destaque.className = 'json-token-' + tipo;
+    // Nunca usar innerHTML com conteúdo retornado pela API.
+    destaque.textContent = texto;
+    elemento.append(destaque);
+    inicio = posicao + texto.length;
+  }
+  if (inicio < linha.length) {
+    elemento.append(document.createTextNode(linha.slice(inicio)));
+  }
+  // Linhas vazias ainda ocupam espaço vertical.
+  if (!linha.length) elemento.append(document.createTextNode(' '));
+  return elemento;
+}
+
+function renderizarJson(atracao) {
+  jsonParaCopiar = JSON.stringify(atracao, null, 2);
+  const linhas = jsonParaCopiar.split('\n');
+  const codigos = document.createDocumentFragment();
+  const numeros = document.createDocumentFragment();
+  for (let indice = 0; indice < linhas.length; indice++) {
+    const numero = document.createElement('span');
+    numero.className = 'json-numero-linha';
+    numero.textContent = String(indice + 1);
+    numeros.append(numero);
+    codigos.append(construirLinhaJson(linhas[indice]));
+  }
+  document.querySelector('#jsonLinhas').replaceChildren(numeros);
+  document.querySelector('#jsonCode').replaceChildren(codigos);
+}
+
+async function copiarJson() {
+  const status = document.querySelector('#statusCopia');
+  const botao = document.querySelector('#copiarJson');
+  try {
+    if (!navigator.clipboard?.writeText) throw new Error('Clipboard não disponível');
+    await navigator.clipboard.writeText(jsonParaCopiar);
+    status.textContent = 'JSON copiado para a área de transferência.';
+    botao.textContent = '✓ Copiado!';
+  } catch {
+    status.textContent = 'Não foi possível copiar automaticamente. Selecione o JSON para copiar manualmente.';
+    botao.textContent = 'Copiar JSON';
+  }
+}
+
 function mostrarErro(mensagem) {
   $('#paginaAtracao').hidden = true;
   $('#mensagem').hidden = true;
@@ -47,35 +109,7 @@ function mostrarAtracao(atracao, id) {
   preencher('#categoriaAtracao', categoria);
   preencher('#distanciaAtracao', distanciaFormatada(atracao));
 
-  const tags = $('#tagsAtracao');
-  tags.replaceChildren();
-  const listaTags = Array.isArray(atracao.tags) ? atracao.tags : [];
-  if (listaTags.length === 0) {
-    const vazio = document.createElement('p');
-    vazio.className = 'detalhe-ajuda';
-    vazio.textContent = 'Nenhum tema cadastrado para esta atração.';
-    tags.append(vazio);
-  } else {
-    for (const tema of listaTags) {
-      if (typeof tema !== 'string') continue;
-      const chip = document.createElement('span');
-      chip.className = 'detalhe-tag';
-      chip.textContent = tema;
-      tags.append(chip);
-    }
-  }
-
-  const quantidade = Number(atracao.totalAvaliacoes);
-  const media = atracao.notaMedia;
-  if (Number.isInteger(quantidade) && quantidade > 0) {
-    const prefixo = quantidade === 1 ? '1 avaliação registrada.' : quantidade + ' avaliações registradas.';
-    const nota = typeof media === 'number' && Number.isFinite(media)
-      ? ' Média: ' + new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 1 }).format(media) + ' de 5.'
-      : '';
-    preencher('#resumoAvaliacoes', prefixo + nota);
-  } else {
-    preencher('#resumoAvaliacoes', 'Ainda não há avaliações registradas para esta atração.');
-  }
+  renderizarJson(atracao);
 
   $('#linkJson').href = '/atracoes/' + id + '?formato=json';
   document.title = nome + ' | Explore Balsas';
@@ -109,5 +143,7 @@ async function iniciar() {
     mostrarErro('Não conseguimos carregar os detalhes agora. Tente atualizar a página ou volte ao catálogo.');
   }
 }
+
+document.querySelector('#copiarJson').addEventListener('click', copiarJson);
 
 void iniciar();

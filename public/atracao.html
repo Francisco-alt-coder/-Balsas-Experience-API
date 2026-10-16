@@ -63,17 +63,28 @@
             <p id="descricaoAtracao" class="detalhe-descricao"></p>
           </article>
 
-          <section class="detalhe-bloco" aria-labelledby="tituloTemas">
-            <p class="secao-codigo">CARACTERÍSTICAS</p>
-            <h2 id="tituloTemas">O que você encontra aqui</h2>
-            <p class="detalhe-ajuda">Temas associados a esta atração no catálogo.</p>
-            <div id="tagsAtracao" class="detalhe-tags"></div>
-          </section>
-
-          <section class="detalhe-bloco" aria-labelledby="tituloAvaliacoes">
-            <p class="secao-codigo">INFORMAÇÕES CADASTRADAS</p>
-            <h2 id="tituloAvaliacoes">Avaliações</h2>
-            <p id="resumoAvaliacoes" class="detalhe-descricao"></p>
+          <section class="detalhe-bloco detalhe-json-secao" aria-labelledby="tituloJson">
+            <p class="secao-codigo">DADOS DA API</p>
+            <h2 id="tituloJson">Resposta em JSON</h2>
+            <p class="detalhe-descricao detalhe-json-explicacao">
+              Abaixo está o JSON retornado pela nossa API com as informações originais desta atração.
+            </p>
+            <div class="json-card">
+              <div class="json-card-topo">
+                <div class="json-card-titulo" id="jsonTitulo">
+                  <span class="json-card-simbolo" aria-hidden="true">&lt;/&gt;</span>
+                  JSON da atração
+                </div>
+                <button type="button" id="copiarJson" class="json-card-botao">
+                  <span aria-hidden="true">⧉</span> Copiar JSON
+                </button>
+              </div>
+              <div class="json-card-corpo" role="region" aria-label="Resposta JSON original, formatada e numerada" tabindex="0">
+                <div id="jsonLinhas" class="json-linhas" aria-hidden="true"></div>
+                <pre id="jsonCode" class="json-code" tabindex="-1"></pre>
+              </div>
+            </div>
+            <p id="statusCopia" class="json-status-copia" role="status" aria-live="polite"></p>
           </section>
         </div>
 
@@ -94,7 +105,7 @@
             <p class="detalhe-api-selo">PARA DESENVOLVEDORES</p>
             <h3>Dados da API REST</h3>
             <p>Consulte as informações originais desta atração em formato JSON.</p>
-            <a id="linkJson" href="/atracoes?formato=json" target="_blank" rel="noopener noreferrer">Visualizar JSON <span aria-hidden="true">↗</span></a>
+            <a id="linkJson" href="/atracoes?formato=json" target="_blank" rel="noopener noreferrer">Visualizar resposta original <span aria-hidden="true">↗</span></a>
           </section>
         </aside>
       </section>
