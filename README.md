@@ -1,6 +1,6 @@
 ﻿# Balsas Experience API 2.0.0
 
-API REST de atrações turísticas de Balsas-MA com Node.js 24, Express 5.2.1, Prisma 7.10.0 e PostgreSQL. **Estado atualizado em 15/10/2026:** API HTTPS publicada no Render, com leitura das oito atrações demonstrativas confirmada em navegador. A interface visual está em implementação nesta atualização; a validação externa das rotas de escrita continua pendente. Os 196 testes locais são históricos, não novos resultados. O banco possui esquema e histórico criados por SQL e ainda exige `prisma migrate status` por conexão direta autenticada. A role de privilégio mínimo existe com login desativado, aguardando configuração privada. Veja o [registro da etapa remota](docs/publicacao-neon-2026-10-15.md) e a [auditoria histórica](docs/relatorio-final-pendencias-publicacao.md).
+API REST de atrações turísticas de Balsas-MA com Node.js 24, Express 5.2.1, Prisma 7.10.0 e PostgreSQL. **Estado atualizado em 15/10/2026:** API HTTPS publicada no Render, com leitura das oito atrações demonstrativas confirmada em navegador. A interface visual está disponível no Render; a validação externa das rotas de escrita continua pendente. Os 196 testes locais são históricos, não novos resultados. O banco possui esquema e histórico criados por SQL e ainda exige `prisma migrate status` por conexão direta autenticada. A role base de permissões limitadas permanece sem login; uma conta própria de runtime no Neon utiliza essas permissões. O serviço do Render usa a URL privada configurada na plataforma. Veja o [registro da etapa remota](docs/publicacao-neon-2026-10-15.md) e a [auditoria histórica](docs/relatorio-final-pendencias-publicacao.md).
 
 O [relatório de prontidão](docs/estado-publicacao.md) registra os resultados locais anteriores. O [guia de publicação](docs/guia-publicacao-final.md) define ações futuras sujeitas a autorização; a [rotação administrativa](docs/estado-publicacao.md) já foi comprovada.
 
@@ -13,8 +13,9 @@ A revisão de organização está registrada em [auditoria de limpeza](docs/audi
 O projeto mantém sua arquitetura de API REST e oferece também uma interface de leitura responsiva, sem dependências adicionais. A apresentação é montada com HTML semântico, CSS e JavaScript, usando exclusivamente os registros existentes no PostgreSQL.
 
 - **Navegador:** abra `/atracoes` ou `/explorar` para visualizar os cartões de atrações, pesquisa por nome/descrição, categorias, ordenação e detalhes.
-- **Integrações:** `GET /atracoes` com `Accept: application/json` ou `*/*` continua retornando exatamente a lista JSON. As rotas de escrita e `GET /atracoes/:id` não foram alteradas.
-- **JSON no navegador:** acesse `/atracoes?formato=json` para visualizar a resposta original, mesmo quando o navegador envia `Accept: text/html`.
+- **Detalhes visuais:** no modal, a opção **Ver página completa da atração** abre `/atracoes/:id` como HTML, com categoria, descrição, localização, distância do centro, temas e resumo das avaliações realmente cadastradas.
+- **Integrações:** `GET /atracoes` e `GET /atracoes/:id` com `Accept: application/json` ou `*/*` continuam retornando o mesmo JSON, sem alterar contratos. As rotas de escrita não foram modificadas.
+- **JSON no navegador:** use `/atracoes?formato=json` para a lista e `/atracoes/1?formato=json` para um registro individual, mesmo com `Accept: text/html`.
 - **Segurança e acessibilidade:** os dados são inseridos com `textContent`, há Content Security Policy, rótulos nos filtros, mensagens de status, foco visível, modal nativo e layouts responsivos.
 - **Limitação:** este catálogo apenas lê as atrações; não disponibiliza login, avaliações públicas por formulário, fotos, mapas ou agendamento. Não foram inventadas informações de visitação.
 
