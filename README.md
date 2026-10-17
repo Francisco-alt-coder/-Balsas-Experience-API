@@ -37,6 +37,22 @@ Abra o **pgAdmin**, entre no seu PostgreSQL e faça o seguinte:
 3. Digite `balsas_experience` e clique em **Save**.
 
 
+### Passo 4: coloque no projeto
+
+Volte ao PowerShell, ainda na pasta do projeto, e execute:
+
+```powershell
+Copy-Item .env.example .env
+notepad .env
+```
+
+O Bloco de Notas vai abrir. Procure esta linha e **substitua `SUA_SENHA` pela senha do seu PostgreSQL**:
+
+```dotenv
+DATABASE_URL="postgresql://postgres:SUA_SENHA@localhost:5432/balsas_experience?schema=public"
+```
+
+
 ## Links do projeto
 
 **Versão publicada: basta clicar, sem instalar nada.**
