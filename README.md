@@ -1,24 +1,32 @@
 # Balsas Experience API
 
-Projeto da disciplina **Programação para Web**, do curso de Análise e Desenvolvimento de Sistemas. Nossa equipe criou um site para conhecer atrações turísticas de Balsas (MA) e uma API para consultar os dados.
+Projeto da disciplina **Programação para Web**, do curso de **Análise e Desenvolvimento de Sistemas** da UNIBALSAS. Criamos uma API REST e um catálogo de atrações turísticas de Balsas (MA).
 
-## Como rodar no seu computador
+## Equipe
 
-Este tutorial é para **Windows**. Se você só quer visitar o site, pode pular para **Links do projeto**, mais abaixo. Não precisa instalar nada para acessar a versão publicada.
+- Caio Vinícius Lima Soares
+- David Rodrigues Costa
+- Francisco Wesley de Souza Dias
+- Pedro Henrique Guedes
 
-### Passo 1: instale os programas
+## Tecnologias
 
-Você precisa ter no computador:
+- **Node.js 24** e **Express 5**: servidor e rotas da API.
+- **PostgreSQL** e **Prisma 7**: banco de dados e acesso aos registros.
+- **HTML, CSS e JavaScript**: páginas do catálogo.
+- **Render e Neon**: hospedagem da API e do banco publicado.
+
+## Pré-requisitos
+
+Instale uma vez no computador:
 
 - [Node.js 24](https://nodejs.org/)
 - [Git](https://git-scm.com/downloads)
-- [PostgreSQL](https://www.postgresql.org/download/windows/) (com o **pgAdmin**)
+- [PostgreSQL](https://www.postgresql.org/download/windows/) com pgAdmin
 
-**Esses programas só precisam ser instalados uma vez.**
+## Como executar no Windows
 
-### Passo 2: baixe o código
-
-Abra o **PowerShell** (ou o terminal do VS Code), copie este bloco e execute:
+**1. Baixe o projeto.** Abra o PowerShell (ou terminal do VS Code) e execute:
 
 ```powershell
 git clone https://github.com/Francisco-alt-coder/-Balsas-Experience-API.git balsas-experience-api
@@ -26,78 +34,83 @@ cd balsas-experience-api
 npm ci --include=dev
 ```
 
-Isso baixa o projeto, entra na pasta e instala os pacotes.
+**2. Crie o banco.** Abra o **pgAdmin**, clique com o botão direito em **Databases**, escolha **Create > Database**, informe `balsas_experience` e salve.
 
-### Passo 3: crie o banco de dados
-
-Abra o **pgAdmin**, entre no seu PostgreSQL e faça o seguinte:
-
-1. Clique em **Databases** com o botão direito.
-2. Escolha **Create > Database**.
-3. Digite `balsas_experience` e clique em **Save**.
-
-
-### Passo 4: coloque no projeto
-
-Volte ao PowerShell, ainda na pasta do projeto, e execute:
+**3. Configure o projeto.** No mesmo PowerShell, execute:
 
 ```powershell
 Copy-Item .env.example .env
 notepad .env
 ```
 
-O Bloco de Notas vai abrir. Procure esta linha e **substitua `SUA_SENHA` pela senha do seu PostgreSQL**:
+No arquivo aberto, preencha ou acrescente estas linhas com **a senha do seu PostgreSQL local** e um token aleatório:
 
 ```dotenv
 DATABASE_URL="postgresql://postgres:SUA_SENHA@localhost:5432/balsas_experience?schema=public"
+API_WRITE_TOKEN="COLE_AQUI_UM_TOKEN_ALEATORIO_FORTE_COM_PELO_MENOS_32_CARACTERES"
+BALSAS_ADMIN_DATABASE_URL="postgresql://postgres:SUA_SENHA@localhost:5432/balsas_experience?schema=public"
+BALSAS_ADMIN_ALLOW_MUTATION=YES
 ```
 
+Para gerar um token local de exemplo, execute `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"` e copie o resultado para `API_WRITE_TOKEN`. Salve e feche o Bloco de Notas. Se sua senha do banco tiver caracteres especiais (`@`, `#`, etc.), eles precisam estar codificados na URL.
 
-## Links do projeto
+**Atenção:** `BALSAS_ADMIN_DATABASE_URL` e `BALSAS_ADMIN_ALLOW_MUTATION` são usados **somente para popular seu banco local**. Não configure essas variáveis no Render e nunca publique o arquivo `.env` no GitHub.
 
-**Versão publicada: basta clicar, sem instalar nada.**
+**4. Prepare e inicie a API.** Execute, nesta ordem:
 
-- [Abrir o catálogo de atrações](https://balsas-experience-api-g7ru.onrender.com/explorar)
-- [Página inicial da API](https://balsas-experience-api-g7ru.onrender.com/)
-- [Exemplo de atração](https://balsas-experience-api-g7ru.onrender.com/atracoes/1)
+```powershell
+npm run build
+npm run db:migrate
+npm run db:seed
+npm start
+```
 
-Os links não têm parâmetros de rastreamento. O `?formato=json` faz parte da consulta à API. Por estar no plano gratuito do Render, o site pode demorar para abrir depois de ficar um tempo sem visitas.
+Depois, abra no navegador: **http://localhost:3000/explorar**
 
-## Integrantes
+Para encerrar o servidor, pressione **Ctrl + C**. Nas próximas vezes, com o banco já preparado, basta entrar na pasta do projeto e executar `npm start`.
 
-- Caio Vinícius Lima Soares
-- Francisco Wesley de Souza Dias
-- David Rodrigues Costa
-- Pedro Henrique Guedes
+Se o banco não conectar, confira se o PostgreSQL está ligado, se o banco `balsas_experience` existe e se a senha do `.env` está correta. **Não use o banco Neon de produção nesses comandos locais.**
 
-## O que desenvolvemos
+## Rotas da API
 
-O catálogo permite pesquisar atrações, escolher categorias, ordenar a lista e ver detalhes. A API também permite cadastrar, editar e excluir atrações, com dados organizados no PostgreSQL.
+| Método | Caminho | O que faz | Status de sucesso |
+| --- | --- | --- | --- |
+| GET | `/` | Identifica a API | 200 |
+| GET | `/health` | Verifica a conexão com o banco | 200 |
+| GET | `/live` | Verifica se o servidor está ativo | 200 |
+| GET | `/atracoes?formato=json` | Lista atrações em JSON | 200 |
+| GET | `/atracoes/:id?formato=json` | Consulta uma atração | 200 |
+| GET | `/categorias` | Lista categorias | 200 |
+| POST | `/atracoes` | Cadastra atração | 201 |
+| PUT | `/atracoes/:id` | Substitui atração | 200 |
+| PATCH | `/atracoes/:id` | Altera alguns campos | 200 |
+| DELETE | `/atracoes/:id` | Remove atração | 204 |
+| POST | `/atracoes/:id/avaliacoes` | Registra avaliação | 201 |
 
-## Tecnologias
+As operações de escrita exigem o cabeçalho `Authorization: Bearer SEU_TOKEN`. Uma atração inexistente retorna **404**. Para ver o JSON no navegador, utilize `?formato=json`.
 
-| Parte | Tecnologia |
-| --- | --- |
-| Site | HTML, CSS e JavaScript |
-| API | Node.js 24 e Express 5 |
-| Banco | PostgreSQL e Prisma 7 |
-| Hospedagem | Render e Neon |
-| Código e testes | GitHub e GitHub Actions |
+**Exemplo de consulta:** `GET http://localhost:3000/atracoes/1?formato=json`
 
-## Rotas principais
+Outros exemplos, incluindo criação e exclusão, estão no arquivo [requisicoes.http](requisicoes.http). Faça essas operações de teste apenas no **banco local**.
 
-| Método | Rota | Função |
-| --- | --- | --- |
-| GET | `/health` | Confere o banco |
-| GET | `/atracoes?formato=json` | Lista atrações em JSON |
-| GET | `/atracoes/:id?formato=json` | Mostra uma atração em JSON |
-| GET | `/categorias` | Lista categorias |
-| POST | `/atracoes` | Cadastra (precisa de token) |
-| PUT/PATCH | `/atracoes/:id` | Edita (precisa de token) |
-| DELETE | `/atracoes/:id` | Exclui (precisa de token) |
+## Testes
 
-## Testes e arquivos
+Na pasta do projeto:
 
-Para conferir o código, use `npm run check`, `npm test` e `npm run build`, um de cada vez. Testes de integração exigem um banco de testes separado, não o Neon de produção.
+```powershell
+npm run check
+npm test
+npm run build
+```
 
-Pastas principais: `src/` (API), `public/` (site), `prisma/` (banco), `tests/` (testes) e `scripts/` (comandos auxiliares).
+Os testes unitários usam simulações. Os testes de integração precisam de um banco de testes separado.
+
+## Links importantes
+
+- **Repositório no GitHub:** https://github.com/Francisco-alt-coder/-Balsas-Experience-API
+- **API publicada:** https://balsas-experience-api-g7ru.onrender.com/
+- **Catálogo de atrações:** https://balsas-experience-api-g7ru.onrender.com/explorar
+- **Listagem JSON:** https://balsas-experience-api-g7ru.onrender.com/atracoes?formato=json
+- **Exemplo de atração:** https://balsas-experience-api-g7ru.onrender.com/atracoes/1?formato=json
+
+A versão publicada pode levar algum tempo para responder após ficar ociosa no plano gratuito do Render.
