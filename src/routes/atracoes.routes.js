@@ -1,8 +1,7 @@
 /** Define as rotas relativas a /atracoes e a ordem dos middlewares de cada operação. */
 import express from 'express';
 import { autenticarEscrita } from '../middlewares/autenticacao.js';
-import { validarAvaliacao } from '../middlewares/validacao.js';
-import { validarAtracao, validarId } from '../middlewares/validacao.js';
+import { validarAvaliacao, validarAtracao, validarId } from '../middlewares/validacao.js';
 import {
   atualizar,
   atualizarParcial,

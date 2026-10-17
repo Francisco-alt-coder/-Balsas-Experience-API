@@ -1,8 +1,24 @@
-/** Filtra variáveis administrativas em uma cópia do ambiente, preservando a identidade de execução. */
-// Nomes são insensíveis à capitalização no ambiente Windows.
-/**
- * Retorna uma cópia sem variáveis administrativas, de migração, fixtures e fontes libpq listadas.
- * @param {object} input - Ambiente original, que não é modificado.
- * @returns {object} Ambiente filtrado.
- */
-export function runtimeEnv(input){const env={...input};for(const key of Object.keys(env)){const canonical=key.toUpperCase();if(['DIRECT_URL','TEST_FIXTURE_DATABASE_URL','OLD_DATABASE_URL','NEW_DATABASE_URL'].includes(canonical)||/^BALSAS_(?:ADMIN|READONLY|MIGRATION)_/.test(canonical)||['PGPASSWORD','PGPASSFILE','PGSERVICE','PGSERVICEFILE'].includes(canonical))delete env[key];}return env;}
+/** Retira variáveis administrativas antes de iniciar a aplicação. */
+export function runtimeEnv(input) {
+  // Criamos uma cópia para não modificar o objeto recebido.
+  const env = { ...input };
+
+  for (const chave of Object.keys(env)) {
+    // No Windows, nomes de variáveis podem ter letras maiúsculas ou minúsculas.
+    const nome = chave.toUpperCase();
+    const credencialSeparada = [
+      'DIRECT_URL',
+      'TEST_FIXTURE_DATABASE_URL',
+      'OLD_DATABASE_URL',
+      'NEW_DATABASE_URL',
+    ].includes(nome);
+    const variavelAdministrativa = /^BALSAS_(?:ADMIN|READONLY|MIGRATION)_/.test(nome);
+    const variavelPostgres = ['PGPASSWORD', 'PGPASSFILE', 'PGSERVICE', 'PGSERVICEFILE'].includes(nome);
+
+    if (credencialSeparada || variavelAdministrativa || variavelPostgres) {
+      delete env[chave];
+    }
+  }
+
+  return env;
+}
