@@ -2,11 +2,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import express from 'express';
-import webRoutes from '../src/routes/web.routes.js';
+import { criarRotasWeb } from '../src/routes/web.routes.js';
 
 test('catálogo HTML e contrato JSON coexistem no mesmo caminho', async (t) => {
   const app = express();
-  app.use(webRoutes);
+  // A API REST usa respostas simuladas e a rota HTML usa o mesmo cenário, sem PostgreSQL.
+  app.use(criarRotasWeb(async (id) => (id === 1 ? { id: 1 } : null)));
   // Resposta simulada: não exige conexão ao Neon nem modifica dados.
   app.get('/atracoes', (_req, res) => res.json([
     { id: 1, nome: 'Exemplo de teste', categoria: 'Lazer', descricao: 'Descrição simulada' },
@@ -85,6 +86,25 @@ test('catálogo HTML e contrato JSON coexistem no mesmo caminho', async (t) => {
     const resposta = await fetch(origem + '/atracoes/9999', { headers: { Accept: 'application/json' } });
     assert.equal(resposta.status, 404);
     assert.equal((await resposta.json()).erro, 'Atração não encontrada');
+  });
+
+  await t.test('atração inexistente mostra página estilizada com HTTP 404 verdadeiro', async () => {
+    const resposta = await fetch(origem + '/atracoes/9999999', { headers: { Accept: 'text/html' } });
+    assert.equal(resposta.status, 404);
+    assert.match(resposta.headers.get('content-type'), /text\/html/);
+    assert.match(resposta.headers.get('vary'), /Accept/i);
+    const html = await resposta.text();
+    assert.match(html, /Esta atração/);
+    assert.match(html, /HTTP 404/);
+    assert.match(html, /\/site\/erro-404\.css/);
+    assert.match(html, /\?formato=json/);
+
+    // Mesmo navegador pode solicitar a resposta JSON real, sem alterar o contrato REST.
+    const respostaJson = await fetch(origem + '/atracoes/9999999?formato=json', { headers: { Accept: 'text/html' } });
+    assert.equal(respostaJson.status, 404);
+    assert.deepEqual(await respostaJson.json(), { erro: 'Atração não encontrada' });
+    const css = await fetch(origem + '/site/erro-404.css');
+    assert.equal(css.status, 200);
   });
 
   await t.test('cadastro e exclusão mostram formulários sem simular HTTP 201/204', async () => {
