@@ -8,7 +8,13 @@ import { createHash, timingSafeEqual } from 'node:crypto';
  */
 export function validarTokenConfigurado(env = process.env) {
   const token = env.API_WRITE_TOKEN;
-  if (typeof token !== 'string' || token.length < 32 || /\s/u.test(token) || new Set(token).size < 10 || /^(token|changeme|substitua|exemplo)/i.test(token)) {
+  if (
+    typeof token !== 'string' ||
+    token.length < 32 ||
+    /\s/u.test(token) ||
+    new Set(token).size < 10 ||
+    /^(token|changeme|substitua|exemplo)/i.test(token)
+  ) {
     throw new Error('API_WRITE_TOKEN deve conter um segredo não trivial de pelo menos 32 caracteres, sem espaços.');
   }
   return token;

@@ -7,8 +7,8 @@ import webRoutes from './routes/web.routes.js';
 import { listarCategorias } from './controllers/atracoes.controller.js';
 import prisma from './lib/prisma.js';
 import { validarTokenConfigurado } from './middlewares/autenticacao.js';
-import {criarHealthCheck,liveness} from './controllers/health.controller.js';
-import {erroSanitizado} from './lib/safe-error.js';
+import { criarHealthCheck, liveness } from './controllers/health.controller.js';
+import { erroSanitizado } from './lib/safe-error.js';
 
 const app = express();
 const PORTA = process.env.PORT || 3000;
@@ -17,7 +17,11 @@ if (!/^\d+$/.test(String(PORTA)) || Number(PORTA) < 1 || Number(PORTA) > 65535) 
 }
 
 app.disable('x-powered-by');
-app.use((req,res,next)=>{res.set('X-Content-Type-Options','nosniff');next();});
+// Informa ao navegador que ele não deve tentar adivinhar o tipo dos arquivos.
+app.use((req, res, next) => {
+  res.set('X-Content-Type-Options', 'nosniff');
+  next();
+});
 validarTokenConfigurado();
 app.use(configurarCors());
 app.use(express.json());
@@ -73,7 +77,9 @@ app.use((erro, req, res, next) => {
   res.status(500).json({ erro: 'Erro interno no servidor' });
 });
 
-const servidor = app.listen(Number(PORTA), process.env.HOST || (process.env.NODE_ENV==='production'?'0.0.0.0':'127.0.0.1'), () => {
+// Em produção o servidor escuta a rede; localmente aceita só conexões do computador.
+const host = process.env.HOST || (process.env.NODE_ENV === 'production' ? '0.0.0.0' : '127.0.0.1');
+const servidor = app.listen(Number(PORTA), host, () => {
   console.log(`Servidor executando na porta ${PORTA}`);
 });
 

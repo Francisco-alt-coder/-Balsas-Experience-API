@@ -36,6 +36,7 @@ docs/*.txt
 # Pacote público revisável: relatórios locais ficam privados.
 docs/*
 !docs/README.md
+!docs/como-funciona.md
 !docs/estado-publicacao.md
 !docs/relatorio-final-pendencias-publicacao.md
 !docs/matriz-rastreabilidade-academica.md
