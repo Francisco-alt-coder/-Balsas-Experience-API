@@ -24,6 +24,6 @@ try {
     original[tabela] = { rows, sha256: createHash('sha256').update(JSON.stringify(rows)).digest('hex') };
   }
   await writeFile('backups/originais.json', JSON.stringify(original, null, 2));
-  await writeFile('docs/backup-lab08.json', JSON.stringify({ arquivo, leitura: true, tabelas: Object.fromEntries(Object.entries(original).map(([k,v]) => [k,{ count:v.rows.length, sha256:v.sha256 }])) }, null, 2));
+  await writeFile('backups/backup-lab08.json', JSON.stringify({ arquivo, leitura: true, tabelas: Object.fromEntries(Object.entries(original).map(([k,v]) => [k,{ count:v.rows.length, sha256:v.sha256 }])) }, null, 2));
   console.log('Backup completo criado e catálogo lido; snapshot original salvo sem credenciais.');
 } finally { await client.end(); }

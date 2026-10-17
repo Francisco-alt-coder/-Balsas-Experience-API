@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import dotenv from 'dotenv';
 const git = (...args) => execFileSync('git', ['-c', `safe.directory=${process.cwd().replaceAll('\\', '/')}`, ...args], { encoding: 'utf8', windowsHide: true });
 const files = git('ls-files', '--cached', '--others', '--exclude-standard', '-z').split('\0').filter(Boolean);
@@ -38,6 +38,7 @@ for (const file of files) {
   if (/gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|AKIA[A-Z0-9]{16}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/.test(body)) hits.push({ file, reason: 'Formato de segredo conhecido' });
 }
 const result = { files: files.length, hits, checkedSources, tracked: git('ls-files').split('\n').filter(Boolean).length, remotes: git('remote').trim(), limitations: 'Inspeção heurística e valores das fontes privadas acessíveis; não garante ausência de todos os segredos ou acesso a históricos externos.' };
-await writeFile('docs/inspecao-arquivos-publicacao.json', JSON.stringify(result, null, 2));
+await mkdir('tmp', { recursive: true });
+await writeFile('tmp/inspecao-arquivos-publicacao.json', JSON.stringify(result, null, 2));
 console.log(JSON.stringify(result));
 if (hits.length) process.exitCode = 1;

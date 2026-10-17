@@ -11,14 +11,14 @@ async function scan(leak) {
   const dir=await mkdtemp(path.join(base,'publication-secrets-test-'));
   const token=randomBytes(32).toString('base64url');
   try {
-    await mkdir(path.join(dir,'backups/neon'),{recursive:true});await mkdir(path.join(dir,'docs'));
+    await mkdir(path.join(dir,'backups/neon'),{recursive:true});await mkdir(path.join(dir,'tmp'));
     await writeFile(path.join(dir,'.gitignore'),'backups/\n.env\n');await writeFile(path.join(dir,'.env'),'');
     await writeFile(path.join(dir,'backups/neon/runtime-secrets.private.json'),JSON.stringify({API_WRITE_TOKEN:token,DATABASE_URL:'',CORS_ORIGINS:'none'}));
     await writeFile(path.join(dir,'candidate.md'),leak?'mock leaked token: '+token:'benign publication fixture');
     const init=spawnSync('git',['init','-q',dir],{windowsHide:true,encoding:'utf8'});assert.equal(init.status,0);
     const result=spawnSync(process.execPath,[path.resolve('scripts/check-publication-files.mjs')],{cwd:dir,windowsHide:true,encoding:'utf8',timeout:10000});
     assert.ok(!((result.stdout||'')+(result.stderr||'')).includes(token));
-    const report=JSON.parse(await readFile(path.join(dir,'docs/inspecao-arquivos-publicacao.json'),'utf8'));
+    const report=JSON.parse(await readFile(path.join(dir,'tmp/inspecao-arquivos-publicacao.json'),'utf8'));
     return {status:result.status,report};
   } finally {
     // A pasta foi criada por este teste; verificar limite absoluto antes da remoção recursiva.

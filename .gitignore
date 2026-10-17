@@ -1,4 +1,4 @@
-# Dependências e artefatos locais
+# Dependências, cache e arquivos temporários
 node_modules/
 dist/
 coverage/
@@ -9,7 +9,7 @@ tmp/
 npm-debug.log*
 *.log
 
-# Configurações e backups privados
+# Dados privados e backups
 .env
 .env.*
 !.env.example
@@ -22,10 +22,6 @@ npm-debug.log*
 backups/
 .neon
 
-# Documentação pública por lista de arquivos permitidos
-docs/*
-!docs/README.md
-!docs/como-funciona.md
-!docs/endpoints.md
-!docs/matriz-rastreabilidade-academica.md
-!docs/registro-uso-ia.md
+# Documentação acadêmica guardada separadamente
+# e relatórios operacionais não versionados
+docs/

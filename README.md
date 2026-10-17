@@ -38,7 +38,7 @@ A **página pública é só para consulta**. O cadastro, a edição e a exclusã
 | Hospedagem | Render (API) e Neon (PostgreSQL) |
 | Código e testes | GitHub e GitHub Actions |
 
-**Como funciona:** o navegador carrega as páginas da pasta `public/`. Os scripts pedem dados às rotas da API em `src/`. O Prisma consulta o PostgreSQL e o Express devolve os resultados em JSON. Veja também [a explicação do projeto](docs/como-funciona.md).
+**Como funciona:** o navegador carrega as páginas da pasta `public/`. Os scripts pedem dados às rotas da API em `src/`. O Prisma consulta o PostgreSQL e o Express devolve os resultados em JSON.
 
 ## Rodando no computador
 
@@ -129,10 +129,9 @@ O GitHub Actions executa essas verificações e também valida o schema do Prism
 - `prisma/`: modelos, migrações e dados de exemplo.
 - `tests/`: testes automatizados.
 - `scripts/`: verificações e manutenção.
-- `docs/`: explicação do projeto, guias técnicos e registros acadêmicos.
 
 ## Limitações e uso de IA
 
 A interface pública não possui login individual nem formulário para cadastrar atrações. Algumas verificações de integração dependem de ambiente local preparado. A hospedagem gratuita pode entrar em repouso.
 
-O ChatGPT foi utilizado como apoio na escrita, revisão e organização de partes do código, testes e documentação. A equipe deve revisar e compreender as mudanças e comprovar os resultados. O registro de uso está em [docs/registro-uso-ia.md](docs/registro-uso-ia.md).
+O ChatGPT foi utilizado como apoio no código, nos testes, na documentação e na organização do repositório. A equipe informou que a documentação acadêmica está em um PDF separado; o conteúdo e as evidências de IA precisam ser conferidos pela própria equipe. Versões anteriores dos documentos continuam disponíveis no histórico de commits do GitHub.

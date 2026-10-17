@@ -23,6 +23,6 @@ try {
   if (rows[0].atracoes !== 8 || rows[0].tags !== 15 || rows[0].vinculos !== 32) throw new Error('Contagens restauradas divergentes');
   // Never replace isolated runtime configuration with an administrative secret.
   // Provision runtime/fixtures/HBA separately under a reviewed authorization.
-  await writeFile('docs/restauracao-lab08.json', JSON.stringify({ banco: nome, restaurado: true, contagens: rows[0] }, null, 2));
+  await writeFile('backups/restauracao-lab08.json', JSON.stringify({ banco: nome, restaurado: true, contagens: rows[0] }, null, 2));
   console.log('Restauração isolada validada:', nome);
 } finally { await test.end(); }
