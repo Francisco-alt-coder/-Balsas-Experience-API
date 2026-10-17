@@ -1,4 +1,4 @@
-/** Verifica a remoção do rastreamento de origem sem modificar as rotas REST. */
+/** Verifica a remoção do parâmetro de origem sem modificar as rotas REST. */
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -20,9 +20,9 @@ function simularEndereco(href) {
   return { chamadas, estado };
 }
 
-test('remove utm_source=chatgpt.com sem recarregar nem perder âncora', () => {
+test('remove o parâmetro de origem sem recarregar nem perder âncora', () => {
   const { chamadas, estado } = simularEndereco(
-    'https://exemplo.onrender.com/atracoes/1?utm_source=chatgpt.com#informacoes',
+    'https://exemplo.onrender.com/atracoes/1?utm_source=compartilhamento#informacoes',
   );
   assert.equal(chamadas.length, 1);
   assert.equal(chamadas[0][0], estado);
@@ -31,15 +31,15 @@ test('remove utm_source=chatgpt.com sem recarregar nem perder âncora', () => {
 
 test('preserva parâmetros funcionais da navegação', () => {
   const { chamadas } = simularEndereco(
-    'https://exemplo.onrender.com/explorar?utm_source=chatgpt.com&categoria=Lazer#catalogo',
+    'https://exemplo.onrender.com/explorar?utm_source=mensagem&categoria=Lazer#catalogo',
   );
   assert.equal(chamadas.length, 1);
   assert.equal(chamadas[0][2], '/explorar?categoria=Lazer#catalogo');
 });
 
-test('não altera links limpos nem outras origens', () => {
+test('não altera links sem o parâmetro de origem', () => {
   assert.equal(simularEndereco('https://exemplo.onrender.com/atracoes/1').chamadas.length, 0);
-  assert.equal(simularEndereco('https://exemplo.onrender.com/atracoes/1?utm_source=site-proprio').chamadas.length, 0);
+  assert.equal(simularEndereco('https://exemplo.onrender.com/explorar?categoria=Lazer').chamadas.length, 0);
 });
 
 test('o mesmo script é carregado nas páginas visual e individual', () => {
