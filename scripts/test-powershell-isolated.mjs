@@ -1,4 +1,4 @@
-import { writeFile } from 'node:fs/promises';
+import { writeFile, mkdir } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
 import assert from 'node:assert/strict';
 import {runtimeEnv} from './lib/runtime-env.mjs';
@@ -26,7 +26,8 @@ try {
   child.stdout.on('data', chunk => { output += chunk; });
   child.stderr.on('data', () => {});
   const code = await new Promise(resolve => child.on('close', resolve));
-  await writeFile(process.env.POWERSHELL_REPORT_PATH || 'docs/powershell-publicacao.txt', output);
+  await mkdir('tmp', { recursive: true });
+  await writeFile(process.env.POWERSHELL_REPORT_PATH || 'tmp/powershell-publicacao.txt', output);
   assert.equal(code, 0);
   assert.match(output, /APROVADO: 30/);
   assert.match(output, /REPROVADO: 0/);

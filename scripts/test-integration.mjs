@@ -3,7 +3,7 @@ import 'dotenv/config';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { randomUUID, createHash } from 'node:crypto';
-import { writeFile, readFile } from 'node:fs/promises';
+import { writeFile, readFile, mkdir } from 'node:fs/promises';
 import pg from 'pg';
 import {loadTestConfig} from './test-config.mjs';
 import {runtimeEnv} from './lib/runtime-env.mjs';
@@ -205,7 +205,8 @@ try {
   server?.kill();
   const contagens = Object.fromEntries(['APROVADO', 'REPROVADO', 'NÃO EXECUTADO', 'NÃO VERIFICADO'].map((nome) => [nome, resultados.filter((r) => r.resultado === nome).length]));
   const relatorio = { dataUTC: new Date().toISOString(), ambiente: process.version, antes, depois, eventosServidor, resultados, contagens, total: resultados.length };
-  await writeFile(process.env.TEST_REPORT_PATH || 'docs/resultado-integracao.json', `${JSON.stringify(relatorio, null, 2)}\n`);
+  await mkdir('tmp', { recursive: true });
+  await writeFile(process.env.TEST_REPORT_PATH || 'tmp/resultado-integracao.json', `${JSON.stringify(relatorio, null, 2)}\n`);
   console.table(resultados);
   console.log(JSON.stringify({ contagens, total: resultados.length }));
 }

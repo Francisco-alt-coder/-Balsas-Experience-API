@@ -1,6 +1,6 @@
 /** Testa categorias, busca e avaliações com escrita e limpeza de fixtures no banco isolado. */
 import 'dotenv/config';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
@@ -52,5 +52,6 @@ try {
   await db.query('DELETE FROM categorias WHERE chave=$1 AND NOT EXISTS (SELECT 1 FROM atracoes WHERE "categoriaId"=categorias.id)',[categoria.toLowerCase()]);
   await db.end(); server.kill();
   const relatorio={total:resultados.length,aprovados:resultados.filter(r=>r.resultado==='APROVADO').length,reprovados:resultados.filter(r=>r.resultado==='REPROVADO').length,resultados};
-  await writeFile(process.env.LAB08_REPORT_PATH || 'docs/testes-lab08.json',JSON.stringify(relatorio,null,2)); console.log(JSON.stringify(relatorio));
+  await mkdir('tmp', { recursive: true });
+  await writeFile(process.env.LAB08_REPORT_PATH || 'tmp/testes-lab08.json',JSON.stringify(relatorio,null,2)); console.log(JSON.stringify(relatorio));
 }
