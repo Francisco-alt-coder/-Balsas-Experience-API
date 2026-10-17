@@ -1,0 +1,49 @@
+/* Página de erro 404 com o mesmo estilo do catálogo e das operações da API. */
+.erro-404-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(220px, .6fr);
+  gap: 36px;
+  align-items: center;
+}
+.erro-404-simbolo {
+  min-height: 225px;
+  border-radius: 20px;
+  border: 1px solid rgba(224,255,223,.25);
+  background: radial-gradient(circle at 80% 15%, rgba(201,228,148,.23), transparent 65%), #20554b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #d4eba5;
+  position: relative;
+  overflow: hidden;
+}
+.erro-404-simbolo::before, .erro-404-simbolo::after {
+  content: '';
+  position: absolute;
+  height: 260px;
+  width: 260px;
+  border: 1px solid rgba(228,246,210,.18);
+  border-radius: 50%;
+  right: -155px;
+  top: -125px;
+}
+.erro-404-simbolo::after { height: 185px; width: 185px; right: -110px; top: -85px; }
+.erro-404-simbolo span { font: 700 clamp(5rem, 11vw, 8.5rem)/1 Georgia, serif; position: relative; }
+.erro-404-simbolo small { font-size: 11px; font-weight: 800; letter-spacing: .2em; position: relative; }
+.erro-404-conteudo { padding-top: 30px; }
+.erro-404-estado { border: 1px solid #d8e5d9; border-radius: 10px; padding: 18px 19px; background: #f1f6f0; color: #315244; margin: 0 0 24px; }
+.erro-404-estado strong { font-size: 14px; }
+.erro-404-estado p { font-size: 13px; line-height: 1.7; margin: 7px 0 0; }
+.erro-404-botao { justify-content: space-between; }
+.erro-404-json { min-height: 100px; }
+@media (max-width: 850px) {
+  .erro-404-hero { grid-template-columns: 1fr; }
+  .erro-404-simbolo { min-height: 155px; }
+  .erro-404-simbolo span { font-size: 5.3rem; }
+}
+@media (max-width: 560px) {
+  .erro-404-hero { gap: 20px; }
+  .erro-404-simbolo { min-height: 130px; }
+  .erro-404-simbolo span { font-size: 4rem; }
+}
