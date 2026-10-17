@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#103a39">
+  <meta name="description" content="Exclusão controlada de um registro de teste na Balsas Experience API, com resposta HTTP real.">
+  <title>Excluir atração de teste | Explore Balsas</title>
+  <link rel="stylesheet" href="/site/atracoes.css">
+  <link rel="stylesheet" href="/site/operacoes.css">
+  <script src="/site/limpar-url.js" defer></script>
+  <script src="/site/operacoes.js" defer></script>
+</head>
+<body data-operacao="exclusao">
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <header class="cabecalho">
+    <div class="limite barra">
+      <a class="marca" href="/explorar" aria-label="Explore Balsas, início">
+        <span class="marca-icone" aria-hidden="true">B</span>
+        <span class="marca-texto">Explore <strong>Balsas</strong><small>GUIA DE ATRAÇÕES</small></span>
+      </a>
+      <nav class="navegacao" aria-label="Navegação principal">
+        <a href="/explorar">Atrações</a>
+        <a href="/cadastro">Cadastro</a>
+        <a href="/exclusao" aria-current="page">Exclusão</a>
+      </nav>
+    </div>
+  </header>
+  <main id="conteudo">
+    <section class="op-hero">
+      <div class="limite">
+        <p class="op-etiqueta">BALSAS EXPERIENCE API / OPERAÇÕES</p>
+        <h1>Excluir uma <em>atração de teste.</em></h1>
+        <p>Consulte o registro e confirme sua exclusão. O status exibido será o da requisição DELETE realmente executada.</p>
+        <div class="op-metodo"><span>DELETE</span><code>/atracoes/:id</code><small>Sucesso esperado: HTTP 204</small></div>
+      </div>
+    </section>
+    <div class="limite op-aviso" role="note">
+      <strong>Exclusão permanente:</strong> esta página não permite excluir atrações comuns do catálogo.
+      Só aceita registros com nome iniciado por "Teste acadêmico - ", após consulta prévia e confirmação expressa.
+      Use preferencialmente um banco isolado para realizar as evidências.
+    </div>
+    <section class="limite op-layout" aria-label="Exclusão e retorno da requisição">
+      <article class="op-cartao">
+        <p class="op-selo">EXCLUSÃO CONTROLADA</p>
+        <h2>Identificar registro de teste</h2>
+        <p class="op-ajuda">Depois do cadastro, informe o ID recebido na resposta HTTP 201. Se as duas páginas estiverem abertas na mesma aba, o ID é preenchido automaticamente.</p>
+        <form id="formExclusao">
+          <div class="op-campo">
+            <label for="idAtracao">ID da atração</label>
+            <input id="idAtracao" type="number" min="1" max="2147483647" step="1" required placeholder="Ex.: 9">
+          </div>
+          <div class="op-campo">
+            <label for="token">Token de escrita da API</label>
+            <input id="token" type="password" required autocomplete="off" spellcheck="false" placeholder="Informe o token do seu ambiente">
+            <small>O token não é armazenado nem incluído na URL.</small>
+          </div>
+          <div class="op-campo">
+            <label for="confirmacao">Digite EXCLUIR para confirmar</label>
+            <input id="confirmacao" required autocomplete="off" placeholder="EXCLUIR">
+          </div>
+          <label class="op-check"><input id="confirmar" type="checkbox" required><span>Autorizo excluir definitivamente este registro de teste do banco conectado.</span></label>
+          <button id="enviar" type="submit" class="op-botao op-botao-perigo">Excluir registro de teste <span aria-hidden="true">→</span></button>
+        </form>
+      </article>
+      <aside class="op-cartao op-resultado" aria-label="Resultado real da requisição">
+        <p class="op-selo">RESPOSTA DO SERVIDOR</p>
+        <h2>Resultado da exclusão</h2>
+        <div id="status" class="op-status" role="status" aria-live="polite">Aguardando confirmação</div>
+        <dl class="op-metadados">
+          <div><dt>Método</dt><dd id="metodoResultado">DELETE</dd></div>
+          <div><dt>Endpoint</dt><dd><code id="enderecoResultado">/atracoes/:id</code></dd></div>
+          <div><dt>Horário da resposta</dt><dd id="horaResultado">Não executado</dd></div>
+          <div><dt>Registro consultado</dt><dd id="locationResultado">Ainda não verificado</dd></div>
+        </dl>
+        <p class="op-codigo-titulo">Corpo da resposta HTTP</p>
+        <pre id="corpoResultado" class="op-codigo" tabindex="0">Após a exclusão real, a API deve retornar HTTP 204 sem corpo.</pre>
+        <p class="op-ajuda">Um status HTTP 204 confirma que a solicitação de exclusão foi processada sem corpo de resposta. Não há resultado de sucesso pré-preenchido.</p>
+        <a class="op-proxima" href="/cadastro">Voltar ao cadastro →</a>
+      </aside>
+    </section>
+  </main>
+  <footer class="rodape"><div class="limite rodape-interno"><span><strong>Explore Balsas</strong> · Exercício acadêmico</span><span>Exclusão apenas de registros de teste · <a href="/explorar">Voltar ao catálogo</a></span></div></footer>
+</body>
+</html>

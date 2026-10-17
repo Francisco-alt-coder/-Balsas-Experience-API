@@ -1,0 +1,44 @@
+/* Formulários das operações REST: mantém cores e navegação do Explore Balsas. */
+.op-hero { background: var(--verde-profundo); color: white; padding: 48px 0 43px; }
+.op-etiqueta,.op-selo { font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.op-etiqueta { color: var(--lima); }
+.op-hero h1 { font: 700 clamp(2.3rem,4.4vw,3.8rem)/1.1 Georgia,serif; max-width: 850px; margin: 16px 0; }
+.op-hero h1 em { color: var(--lima); }
+.op-hero p:not(.op-etiqueta) { color: #d9e8df; font-size: 15px; max-width: 670px; }
+.op-metodo { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:27px; }
+.op-metodo span { background: var(--lima); color:#173d35; padding:7px 13px; border-radius:6px; font-size:13px; font-weight:850; }
+.op-metodo code { color: white; font-size:15px; }
+.op-metodo small { color:#d9e8df; }
+.op-aviso { margin-top:26px; padding:16px 20px; background:#eef3e7; border:1px solid #cfddc8; border-left:4px solid #779c60; border-radius:10px; color:#355043; line-height:1.65; font-size:13px; }
+.op-layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; align-items:start; padding-top:26px; padding-bottom:75px; }
+.op-cartao { min-width:0; background:#fff; border:1px solid #dce6dc; box-shadow:0 8px 26px rgba(19,54,36,.045); border-radius:16px; padding:29px; }
+.op-selo { color:#4e795f; margin:0 0 7px; }
+.op-cartao h2 { font:700 29px/1.2 Georgia,serif; color:#173d36; margin:0 0 14px; }
+.op-ajuda { color:#597164; font-size:13px; line-height:1.65; margin-bottom:22px; }
+.op-campo { display:grid; gap:7px; margin-bottom:16px; min-width:0; }
+.op-campo label { color:#2e5143; font-weight:750; font-size:13px; }
+.op-campo input,.op-campo textarea { width:100%; min-width:0; padding:12px 13px; font-size:14px; border-radius:8px; border:1px solid #cddbd1; color:#21453a; background:#fff; }
+.op-campo input:focus,.op-campo textarea:focus { border-color:#4b8b66; }
+.op-campo small { color:#667b6e; font-size:12px; }
+.op-campo textarea { resize:vertical; }
+.op-linha { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+.op-check { display:flex; align-items:flex-start; gap:10px; margin:10px 0 19px; font-size:13px; line-height:1.5; color:#3c5a4b; cursor:pointer; }
+.op-check input { margin-top:4px; width:17px; height:17px; flex:none; accent-color:#225b48; }
+.op-botao { width:100%; display:flex; gap:10px; justify-content:space-between; align-items:center; background:#205b44; color:#fff; border:0; border-radius:9px; padding:15px 18px; font-weight:800; }
+.op-botao:hover { background:#2d7153; }
+.op-botao-perigo { background:#8a4138; }
+.op-botao-perigo:hover { background:#aa4a40; }
+.op-botao:disabled { opacity:.6; cursor:wait; }
+.op-resultado { position:sticky; top:20px; }
+.op-status { display:inline-flex; align-items:center; min-height:41px; max-width:100%; border-radius:8px; padding:9px 14px; background:#edf2ec; font-weight:800; color:#365747; margin:7px 0 18px; }
+.op-status.sucesso { color:#12603c; background:#e1f3e6; }
+.op-status.falha { color:#8a3328; background:#fff0eb; }
+.op-metadados { margin:5px 0 23px; border-top:1px solid #e4eae1; }
+.op-metadados div { display:grid; grid-template-columns:135px minmax(0,1fr); gap:8px; border-bottom:1px solid #e4eae1; padding:11px 0; font-size:13px; }
+.op-metadados dt { color:#738478; }
+.op-metadados dd { margin:0; text-align:right; font-weight:750; color:#26483a; overflow-wrap:anywhere; }
+.op-codigo-titulo { font-size:12px; color:#355944; text-transform:uppercase; font-weight:800; letter-spacing:.05em; }
+.op-codigo { background:#122a37; color:#eaf5f6; padding:18px; border-radius:10px; overflow:auto; font:13px/1.7 Consolas,Monaco,monospace; min-height:135px; max-height:390px; white-space:pre-wrap; overflow-wrap:anywhere; }
+.op-proxima { display:inline-block; color:#255e44; font-weight:800; margin-top:8px; font-size:13px; }
+@media (max-width:850px) {.op-layout{grid-template-columns:1fr}.op-resultado{position:static}}
+@media (max-width:560px) {.op-cartao{padding:19px}.op-linha{grid-template-columns:1fr;gap:0}.op-metadados div{grid-template-columns:1fr}.op-metadados dd{text-align:left}.op-hero{padding:37px 0}}

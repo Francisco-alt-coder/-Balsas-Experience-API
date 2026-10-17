@@ -6,6 +6,8 @@ const router = express.Router();
 const pastaPublica = fileURLToPath(new URL('../../public/', import.meta.url));
 const pagina = fileURLToPath(new URL('../../public/atracoes.html', import.meta.url));
 const paginaDetalhes = fileURLToPath(new URL('../../public/atracao.html', import.meta.url));
+const paginaCadastro = fileURLToPath(new URL('../../public/cadastro.html', import.meta.url));
+const paginaExclusao = fileURLToPath(new URL('../../public/exclusao.html', import.meta.url));
 
 function apresentarPagina(req, res, arquivo) {
   // A política impede execução de scripts externos e mantém as consultas no mesmo domínio.
@@ -30,6 +32,9 @@ router.use('/site', express.static(pastaPublica, { index: false, dotfiles: 'deny
 
 // Endereço direto, útil para apresentação e divulgação do catálogo.
 router.get('/explorar', apresentarCatalogo);
+// Formulários acadêmicos: páginas visuais; as escritas continuam protegidas nas rotas REST.
+router.get('/cadastro', (req, res) => apresentarPagina(req, res, paginaCadastro));
+router.get('/exclusao', (req, res) => apresentarPagina(req, res, paginaExclusao));
 
 // Navegadores pedem HTML. Clientes REST continuam recebendo JSON (application/json ou */*).
 router.get('/atracoes', (req, res, next) => {

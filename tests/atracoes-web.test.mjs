@@ -87,6 +87,33 @@ test('catálogo HTML e contrato JSON coexistem no mesmo caminho', async (t) => {
     assert.equal((await resposta.json()).erro, 'Atração não encontrada');
   });
 
+  await t.test('cadastro e exclusão mostram formulários sem simular HTTP 201/204', async () => {
+    for (const [caminho, titulo, metodo] of [
+      ['/cadastro', 'Cadastrar uma', 'POST'],
+      ['/exclusao', 'Excluir uma', 'DELETE'],
+    ]) {
+      const resposta = await fetch(origem + caminho);
+      assert.equal(resposta.status, 200);
+      assert.match(resposta.headers.get('content-type'), /text\/html/);
+      assert.match(resposta.headers.get('content-security-policy'), /script-src 'self'/);
+      const html = await resposta.text();
+      assert.match(html, new RegExp(titulo));
+      assert.match(html, new RegExp(metodo));
+      assert.match(html, /type="password"/);
+      assert.match(html, /Aguardando/);
+      assert.doesNotMatch(html, /CONFIRMADO|API_WRITE_TOKEN=/);
+    }
+    for (const arquivo of ['operacoes.css', 'operacoes.js']) {
+      const resposta = await fetch(origem + '/site/' + arquivo);
+      assert.equal(resposta.status, 200);
+    }
+    const js = await (await fetch(origem + '/site/operacoes.js')).text();
+    assert.match(js, /fetch\('\/atracoes'/);
+    assert.match(js, /method:'DELETE'/);
+    assert.match(js, /startsWith\('Teste acadêmico - '\)/);
+    assert.doesNotMatch(js, /localStorage|innerHTML/);
+  });
+
   await t.test('URL independente e arquivos estáticos funcionam', async () => {
     const pagina = await fetch(origem + '/explorar');
     assert.equal(pagina.status, 200);

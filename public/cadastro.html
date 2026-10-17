@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#103a39">
+  <meta name="description" content="Cadastro de registro de teste na Balsas Experience API, com retorno HTTP real.">
+  <title>Cadastrar atração de teste | Explore Balsas</title>
+  <link rel="stylesheet" href="/site/atracoes.css">
+  <link rel="stylesheet" href="/site/operacoes.css">
+  <script src="/site/limpar-url.js" defer></script>
+  <script src="/site/operacoes.js" defer></script>
+</head>
+<body data-operacao="cadastro">
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <header class="cabecalho">
+    <div class="limite barra">
+      <a class="marca" href="/explorar" aria-label="Explore Balsas, início">
+        <span class="marca-icone" aria-hidden="true">B</span>
+        <span class="marca-texto">Explore <strong>Balsas</strong><small>GUIA DE ATRAÇÕES</small></span>
+      </a>
+      <nav class="navegacao" aria-label="Navegação principal">
+        <a href="/explorar">Atrações</a>
+        <a href="/cadastro" aria-current="page">Cadastro</a>
+        <a href="/exclusao">Exclusão</a>
+      </nav>
+    </div>
+  </header>
+  <main id="conteudo">
+    <section class="op-hero">
+      <div class="limite">
+        <p class="op-etiqueta">BALSAS EXPERIENCE API / OPERAÇÕES</p>
+        <h1>Cadastrar uma <em>atração de teste.</em></h1>
+        <p>Envie uma requisição POST e visualize, nesta página, o status e a resposta que o servidor realmente retornar.</p>
+        <div class="op-metodo"><span>POST</span><code>/atracoes</code><small>Sucesso esperado: HTTP 201</small></div>
+      </div>
+    </section>
+    <div class="limite op-aviso" role="note">
+      <strong>Atenção ao banco de dados:</strong> a operação grava no banco conectado ao servidor.
+      Para uma evidência acadêmica, prefira o projeto executado localmente com banco de testes.
+      No endereço publicado, a gravação será feita no banco publicado. Nenhuma credencial deve ser compartilhada.
+    </div>
+    <section class="limite op-layout" aria-label="Cadastro e retorno da requisição">
+      <article class="op-cartao">
+        <p class="op-selo">FORMULÁRIO DE TESTE</p>
+        <h2>Dados da atração</h2>
+        <p class="op-ajuda">Utilize apenas registros identificados como teste. O nome deve começar por "Teste acadêmico - " para permitir a exclusão segura pela página correspondente.</p>
+        <form id="formCadastro">
+          <div class="op-campo">
+            <label for="nome">Nome</label>
+            <input id="nome" name="nome" required minlength="20" maxlength="120" value="Teste acadêmico - Cadastro via site" autocomplete="off">
+          </div>
+          <div class="op-linha">
+            <div class="op-campo"><label for="categoria">Categoria</label><input id="categoria" name="categoria" required value="Lazer"></div>
+            <div class="op-campo"><label for="distancia">Distância do centro (km)</label><input id="distancia" name="distancia" type="number" step="0.1" min="0" value="3" required></div>
+          </div>
+          <div class="op-campo">
+            <label for="descricao">Descrição</label>
+            <textarea id="descricao" name="descricao" rows="3" required>Registro de teste para documentar uma requisição HTTP de cadastro.</textarea>
+          </div>
+          <div class="op-linha">
+            <div class="op-campo"><label for="cidade">Cidade</label><input id="cidade" name="cidade" required value="Balsas"></div>
+            <div class="op-campo"><label for="estado">Estado</label><input id="estado" name="estado" required value="MA" maxlength="2"></div>
+          </div>
+          <div class="op-campo">
+            <label for="token">Token de escrita da API</label>
+            <input id="token" type="password" required autocomplete="off" spellcheck="false" placeholder="Informe o token do seu ambiente">
+            <small>O token é enviado apenas no cabeçalho Authorization e não é gravado no navegador.</small>
+          </div>
+          <label class="op-check"><input id="confirmar" type="checkbox" required><span>Entendo que o cadastro será gravado no banco conectado e autorizo criar este registro de teste.</span></label>
+          <button id="enviar" type="submit" class="op-botao">Cadastrar atração <span aria-hidden="true">→</span></button>
+        </form>
+      </article>
+      <aside class="op-cartao op-resultado" aria-label="Resultado real da requisição">
+        <p class="op-selo">RESPOSTA DO SERVIDOR</p>
+        <h2>Resultado do cadastro</h2>
+        <div id="status" class="op-status" role="status" aria-live="polite">Aguardando envio</div>
+        <dl class="op-metadados">
+          <div><dt>Método</dt><dd id="metodoResultado">POST</dd></div>
+          <div><dt>Endpoint</dt><dd><code id="enderecoResultado">/atracoes</code></dd></div>
+          <div><dt>Horário da resposta</dt><dd id="horaResultado">Não executado</dd></div>
+          <div><dt>Localização do novo recurso</dt><dd id="locationResultado">Não disponível</dd></div>
+        </dl>
+        <p class="op-codigo-titulo">Corpo da resposta HTTP</p>
+        <pre id="corpoResultado" class="op-codigo" tabindex="0">A resposta real aparecerá aqui depois de enviar o formulário.</pre>
+        <p class="op-ajuda">O HTTP 201 só será exibido se o servidor confirmar a criação. Erros também serão mostrados com o código correspondente.</p>
+        <a class="op-proxima" href="/exclusao">Ir para a página de exclusão →</a>
+      </aside>
+    </section>
+  </main>
+  <footer class="rodape"><div class="limite rodape-interno"><span><strong>Explore Balsas</strong> · Exercício acadêmico</span><span>Operações com autenticação · <a href="/explorar">Voltar ao catálogo</a></span></div></footer>
+</body>
+</html>

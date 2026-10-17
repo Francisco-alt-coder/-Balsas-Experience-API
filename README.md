@@ -105,11 +105,22 @@ npm run build
 
 Os testes unitários usam simulações. Os testes de integração precisam de um banco de testes separado.
 
+## Páginas para testar cadastro e exclusão
+
+- **Cadastro (POST 201):** /cadastro
+- **Exclusão (DELETE 204):** /exclusao
+
+As duas páginas seguem a aparência do catálogo e exibem o código HTTP e a resposta **apenas depois de executar a operação real**. É necessário informar o token de escrita do ambiente, que não fica salvo no navegador. Para proteger o catálogo, a página de exclusão aceita somente registros com nome iniciado por "Teste acadêmico - " e exige confirmação.
+
+**Prefira testar localmente em um banco separado.** No serviço publicado, essas operações modificam o banco conectado ao Render. Não envie a credencial para o GitHub, para o relatório nem para capturas de tela. Após cadastrar uma atração de teste, anote o ID retornado e exclua somente esse registro.
+
 ## Links importantes
 
 - **Repositório no GitHub:** https://github.com/Francisco-alt-coder/-Balsas-Experience-API
 - **API publicada:** https://balsas-experience-api-g7ru.onrender.com/
 - **Catálogo de atrações:** https://balsas-experience-api-g7ru.onrender.com/explorar
+- **Cadastro de teste:** https://balsas-experience-api-g7ru.onrender.com/cadastro
+- **Exclusão de teste:** https://balsas-experience-api-g7ru.onrender.com/exclusao
 - **Listagem JSON:** https://balsas-experience-api-g7ru.onrender.com/atracoes?formato=json
 - **Exemplo de atração:** https://balsas-experience-api-g7ru.onrender.com/atracoes/1?formato=json
 
