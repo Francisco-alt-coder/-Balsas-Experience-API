@@ -4,7 +4,9 @@
   "description": "API REST de atrações turísticas de Balsas-MA com Node.js, Express, Prisma ORM e PostgreSQL",
   "type": "module",
   "private": true,
-  "engines": { "node": "24.x" },
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "start": "node src/app.js",
     "dev": "node --watch src/app.js",
@@ -14,7 +16,7 @@
     "prisma:generate": "prisma generate --config prisma7.config.ts",
     "db:migrate": "prisma migrate dev --config prisma7.config.ts",
     "db:migrate:deploy": "prisma migrate deploy --config prisma7.config.ts",
-    "db:seed": "node prisma/seed.js",
+    "db:seed": "node tools/seed-evidencias-ci.mjs",
     "db:sync-sequences": "node scripts/sync-sequences.mjs",
     "db:studio": "prisma studio --config prisma7.config.ts",
     "build": "npm run prisma:generate",
