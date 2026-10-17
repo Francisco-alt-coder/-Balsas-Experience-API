@@ -15,7 +15,7 @@ try {
   for (const item of atracoes) {
     await db.atracao.create({
       data: {
-        id: item.id, nome: item.nome, descricao: item.descricao,
+        nome: item.nome, descricao: item.descricao,
         categoria: item.categoria,
         categoriaRelacao: relacionarCategoria(item.categoria),
         cidade: item.localizacao.cidade, estado: item.localizacao.estado,
