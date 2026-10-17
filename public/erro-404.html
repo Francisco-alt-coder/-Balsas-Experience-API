@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#103a39">
+  <meta name="description" content="Atração não encontrada no catálogo da Balsas Experience API.">
+  <title>HTTP 404 · Atração não encontrada | Explore Balsas</title>
+  <link rel="stylesheet" href="/site/atracoes.css">
+  <link rel="stylesheet" href="/site/operacoes.css">
+  <link rel="stylesheet" href="/site/erro-404.css">
+  <script src="/site/limpar-url.js" defer></script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <header class="cabecalho">
+    <div class="limite barra">
+      <a class="marca" href="/explorar" aria-label="Explore Balsas, início">
+        <span class="marca-icone" aria-hidden="true">B</span>
+        <span class="marca-texto">Explore <strong>Balsas</strong><small>GUIA DE ATRAÇÕES</small></span>
+      </a>
+      <nav class="navegacao" aria-label="Navegação principal">
+        <a href="/explorar">Atrações</a>
+        <a class="link-api" href="/atracoes?formato=json">Ver JSON da API <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="op-hero">
+      <div class="limite erro-404-hero">
+        <div>
+          <p class="op-etiqueta">BALSAS · MARANHÃO / CONSULTA DE ATRAÇÕES</p>
+          <h1>Esta atração <em>não foi encontrada.</em></h1>
+          <p>O identificador informado não corresponde a um registro disponível no catálogo. Confira o endereço ou escolha uma atração existente.</p>
+          <div class="op-metodo">
+            <span>GET</span>
+            <code>/atracoes/:id</code>
+            <small>Status da página: HTTP 404</small>
+          </div>
+        </div>
+        <div class="erro-404-simbolo" aria-hidden="true"><span>404</span><small>NOT FOUND</small></div>
+      </div>
+    </section>
+
+    <section class="limite op-layout erro-404-conteudo" aria-label="Detalhes da consulta não encontrada">
+      <article class="op-cartao">
+        <p class="op-selo">ATRAÇÃO NÃO LOCALIZADA</p>
+        <h2>Registro não encontrado</h2>
+        <p class="op-ajuda">A API não encontrou uma atração com o ID solicitado. Nenhum registro foi criado, alterado ou excluído nesta consulta.</p>
+        <div class="erro-404-estado">
+          <strong>O que fazer agora?</strong>
+          <p>Volte ao catálogo para consultar as atrações cadastradas ou confira o ID utilizado.</p>
+        </div>
+        <a class="botao-hero erro-404-botao" href="/explorar">Explorar atrações <span aria-hidden="true">→</span></a>
+      </article>
+
+      <aside class="op-cartao op-resultado">
+        <p class="op-selo">RESPOSTA DO SERVIDOR</p>
+        <h2>Resultado da consulta</h2>
+        <div class="op-status falha" role="status">HTTP 404 · Not Found</div>
+        <dl class="op-metadados">
+          <div><dt>Método</dt><dd>GET</dd></div>
+          <div><dt>Endpoint</dt><dd><code>/atracoes/:id</code></dd></div>
+          <div><dt>Código HTTP</dt><dd>404</dd></div>
+          <div><dt>Motivo</dt><dd>Atração não encontrada</dd></div>
+        </dl>
+        <p class="op-codigo-titulo">Corpo JSON previsto pelo contrato da API</p>
+        <pre class="op-codigo erro-404-json" tabindex="0">{
+  "erro": "Atração não encontrada"
+}</pre>
+        <p class="op-ajuda">Para conferir a resposta JSON real e o código HTTP, abra o mesmo endereço com <code>?formato=json</code>.</p>
+        <a class="op-proxima" href="?formato=json">Ver resposta JSON desta consulta →</a>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="limite rodape-interno">
+      <span><strong>Explore Balsas</strong> · Catálogo demonstrativo</span>
+      <span>Balsas Experience API · <a href="/health">Status da API</a></span>
+    </div>
+  </footer>
+</body>
+</html>
