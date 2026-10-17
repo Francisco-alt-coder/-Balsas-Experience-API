@@ -3,7 +3,13 @@ import express from 'express';
 import { fileURLToPath } from 'node:url';
 import prisma from '../lib/prisma.js';
 
-const router = express.Router();
+// A consulta pode ser simulada nos testes sem abrir conexão com banco de produção.
+function buscarAtracaoNoBanco(id) {
+  return prisma.atracao.findUnique({ where: { id }, select: { id: true } });
+}
+
+export function criarRotasWeb(buscarAtracao = buscarAtracaoNoBanco) {
+  const router = express.Router();
 const pastaPublica = fileURLToPath(new URL('../../public/', import.meta.url));
 const pagina = fileURLToPath(new URL('../../public/atracoes.html', import.meta.url));
 const paginaDetalhes = fileURLToPath(new URL('../../public/atracao.html', import.meta.url));
@@ -59,7 +65,7 @@ router.get('/atracoes/:id', async (req, res, next) => {
     return next();
   }
   try {
-    const atracao = await prisma.atracao.findUnique({ where: { id }, select: { id: true } });
+    const atracao = await buscarAtracao(id);
     return atracao
       ? apresentarDetalhes(req, res)
       : apresentarPagina(req, res, paginaNaoEncontrada, 404);
@@ -68,4 +74,7 @@ router.get('/atracoes/:id', async (req, res, next) => {
   }
 });
 
-export default router;
+  return router;
+}
+
+export default criarRotasWeb();
