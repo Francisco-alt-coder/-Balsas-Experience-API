@@ -1,60 +1,31 @@
+# Dependências e artefatos locais
 node_modules/
+dist/
+coverage/
+.npm-cache/
+tmp/
+.tools/
+.DS_Store
+npm-debug.log*
+*.log
+
+# Configurações e backups privados
 .env
 .env.*
 !.env.example
 !.env.render.example
 !.env.migration.example
 *.private
-*.private.json
 *.private.*
-.tools/
-.DS_Store
-npm-debug.log*
-.npm-cache/
-backups/
-tmp/
-*.log
 *.dump
 *.backup
+backups/
 .neon
-docs/backup*.json
-docs/banco*.json
-# Inventários locais, processos e evidências operacionais privadas.
-docs/preparacao-rotacao-*.json
-docs/isolamento-*.json
-docs/admin-*.json
-docs/recuperacao-diagnostico-leitura.json
-docs/recuperacao-estabilidade-atual.json
-docs/recuperacao-windows-atual.json
-docs/recuperacao-pid-atual.json
-docs/recuperacao-final-leitura.json
-docs/matriz-missao-final.json
-# Evidências operacionais locais; documentação Markdown e referências permanecem.
-docs/*.json
-docs/*.txt
 
-# Pacote público revisável: relatórios locais ficam privados.
+# Documentação pública por lista de arquivos permitidos
 docs/*
 !docs/README.md
 !docs/como-funciona.md
-!docs/estado-publicacao.md
-!docs/relatorio-final-pendencias-publicacao.md
-!docs/matriz-rastreabilidade-academica.md
-!docs/plano-integracao-remota.md
-!docs/registro-uso-ia.md
-!docs/guia-publicacao-final.md
-!docs/checklist-publicacao-github-neon-render.md
-!docs/guia-instalacao.md
-!docs/guia-testes.md
-!docs/guia-prisma-neon.md
-!docs/guia-recuperacao.md
 !docs/endpoints.md
-!docs/auditoria-limpeza.md
-# Ferramentas locais que inventariam terceiros ou caminhos pessoais.
-scripts/final-postgres-inventory-readonly.mjs
-scripts/inventory-rotation-os-readonly.ps1
-scripts/prepare-rotation-readonly.mjs
-scripts/recheck-consumers.mjs
-scripts/security-consumers-readonly.mjs
-scripts/security-windows-readonly.ps1
-scripts/studytrack-config-readonly.mjs
+!docs/matriz-rastreabilidade-academica.md
+!docs/registro-uso-ia.md

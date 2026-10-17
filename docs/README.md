@@ -1,16 +1,12 @@
-# Documentação
+# Documentação do Balsas Experience API
 
-Se você está começando, leia primeiro o [README do projeto](../README.md) e o guia [Entendendo o projeto](como-funciona.md). Eles explicam a aplicação de maneira simples.
+O [README principal](../README.md) explica como instalar, executar e testar a aplicação.
 
-## Guias úteis
+Materiais complementares que continuam úteis na disciplina:
 
-- [Instalação](guia-instalacao.md) e [testes](guia-testes.md).
-- [Rotas da API](endpoints.md).
-- [Prisma e Neon](guia-prisma-neon.md), [publicação](guia-publicacao-final.md) e [recuperação](guia-recuperacao.md).
-- [Registro do uso de IA](registro-uso-ia.md) e [matriz acadêmica](matriz-rastreabilidade-academica.md).
+- [Como funciona o projeto](como-funciona.md): interface, API e banco de dados.
+- [Rotas e respostas HTTP](endpoints.md): consultas e operações disponíveis.
+- [Matriz de requisitos acadêmicos](matriz-rastreabilidade-academica.md): relação com as apostilas da disciplina.
+- [Registro do uso de IA](registro-uso-ia.md): apoio recebido e evidências declaradas.
 
-## Histórico técnico
-
-Os relatórios de auditoria, checklists e registros de publicação continuam nesta pasta como evidências da evolução do projeto. Alguns descrevem situações de datas anteriores e não devem ser tratados como o estado atual do Render ou Neon.
-
-As credenciais, os backups e os arquivos `.env` reais não devem entrar no GitHub.
+Relatórios de auditoria e scripts administrativos antigos foram retirados da versão atual. O histórico do GitHub preserva as versões anteriores. Credenciais e backups não devem ser publicados.

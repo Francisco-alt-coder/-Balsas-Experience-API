@@ -34,10 +34,20 @@ Sugestões da IA: separação do runtime/migrador, plano de recuperação e priv
 
 Alterações executadas nesta etapa: política CORS explícita none sem frontend publicado; correção de marcadores de encerramento entre duas instâncias de teste; scanner de publicação ampliado para cinco fontes privadas; regressões dessas correções; workflow de unitários Linux; origin local para o destino informado; preparação privada de um token novo; relatório, matriz acadêmica e plano remoto atualizados; pacote/manifesto de publicação preparado. Nenhum segredo foi incluído na documentação pública.
 
-Verificações reais: 47 unitários, 80 integração, 39 Lab08 e 30 PowerShell aprovados; validate/build/check e migrate status local; smokes em modo production com CORS exato e none; regressão de limpeza após falha; snapshots de dados/.env preservados. Conector Neon confirmou banco vazio em READ ONLY e role runtime ausente; transporte direto validou TLS/certificado/hostname sem autenticação. npm audit não identificou vulnerabilidades conhecidas. Codex Security falhou ao iniciar; ESLint 10.12.0 + eslint-plugin-security 4.2.0 executou com zero erros e 168 avisos, sem validação exaustiva de todos eles. Resultados e evidências: [relatório final](relatorio-final-pendencias-publicacao.md).
+Verificações reais: 47 unitários, 80 integração, 39 Lab08 e 30 PowerShell aprovados; validate/build/check e migrate status local; smokes em modo production com CORS exato e none; regressão de limpeza após falha; snapshots de dados/.env preservados. Conector Neon confirmou banco vazio em READ ONLY e role runtime ausente; transporte direto validou TLS/certificado/hostname sem autenticação. npm audit não identificou vulnerabilidades conhecidas. Codex Security falhou ao iniciar; ESLint 10.12.0 + eslint-plugin-security 4.2.0 executou com zero erros e 168 avisos, sem validação exaustiva de todos eles. Resultados e evidências: [relatório final](https://github.com/Francisco-alt-coder/-Balsas-Experience-API/blob/3dfc3ab7f9465d27ddbbfed2ff95102973eddbda/docs/relatorio-final-pendencias-publicacao.md).
 
 Participação humana comprovada: o usuário forneceu objetivos, limites, destino e pediu que o agente determinasse a configuração de origem. Não há frontend público identificado; foi escolhida none, testada localmente. A indicação anterior de preenchimento do arquivo privado não se confirmou na leitura atual: DIRECT_URL continua vazia. Não há aprovação específica para commit/push, migração/roles/carga remotos ou deploy, nem aceitação humana integral dos testes ou divergências acadêmicas. Não foram produzidas capturas de tela nesta etapa.
 
 Na retomada, o agente preservou o workspace, reconferiu a evidência de 196 testes e o inventário remoto em READ ONLY, atualizou o relatório e revisou o CI com actions v7/Node24 por SHA oficial. Validou localmente YAML/script, corrigiu codificação em dois trechos novos da documentação e referências a relatórios privados, e concluiu manifesto/pacote/index. Não repetiu as suítes sem mudança de runtime nem declarou CI aprovado no GitHub.
 
 Pendências de revisão humana: conferir alterações e manifesto público; disponibilizar credencial Neon por armazenamento privado; disponibilizar acesso Render e aprovar separadamente as operações com impacto. A IA não publicou a API, não executou migrações remotas e não certificou funcionamento em produção.
+
+
+## Complemento — limpeza do repositório, 17/10/2026
+
+**Ferramenta:** ChatGPT, com acesso ao GitHub conectado.
+**Finalidade:** inventário e remoção de relatórios e scripts históricos que não participam da execução normal da API.
+**Forma de utilização:** inspeção da árvore versionada, leitura dos comandos npm, workflows, imports e testes; preparação de alterações revisáveis em branch.
+**Contribuição da IA:** seleção fundamentada de exclusões, redução da documentação repetida e simplificação do arquivo de ignorados.
+**Validações e correções da equipe:** pendentes de revisão humana; verificar os testes e a publicação antes de aceitar a mudança.
+**Evidências:** histórico do Git, commit e execução do GitHub Actions na branch de limpeza. Arquivos removidos continuam recuperáveis pelo commit anterior 3dfc3ab7f9465d27ddbbfed2ff95102973eddbda.
