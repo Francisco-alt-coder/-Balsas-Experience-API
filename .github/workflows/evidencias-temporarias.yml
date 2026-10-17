@@ -1,0 +1,59 @@
+name: Evidencias HTTP reais - teste isolado
+on:
+  push:
+    branches:
+      - evidencias-http-temporarias-2026
+  workflow_dispatch:
+
+jobs:
+  capturas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_DB: balsas_evidencias
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 15
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/balsas_evidencias?schema=public
+      BALSAS_ADMIN_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/balsas_evidencias?schema=public
+      BALSAS_ADMIN_ALLOW_MUTATION: "YES"
+      API_WRITE_TOKEN: github-actions-temporary-isolated-token-not-for-production-2026
+      HOST: 127.0.0.1
+      PORT: 3000
+      NODE_ENV: development
+      CORS_ORIGINS: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - name: Instalar dependencias e preparar Prisma
+        run: |
+          npm ci --include=dev
+          npm run build
+          npm run db:migrate
+          npm run db:seed
+      - name: Iniciar API e produzir capturas de respostas HTTP
+        run: |
+          node src/app.js > /tmp/balsas-api-evidence.log 2>&1 &
+          python3 tools/gerar-capturas-evidencias.py
+      - name: Enviar imagens originais como artefato da execucao
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-balsas-experience
+          path: |
+            evidencias-reais/
+            /tmp/balsas-api-evidence.log
+          retention-days: 7
